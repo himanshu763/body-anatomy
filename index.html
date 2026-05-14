@@ -1,415 +1,1851 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KINETIC PROTOCOL</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600;800&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>KINETIC PROTOCOL // TRAINING COMMAND</title>
+<meta name="description" content="Adaptive strength + fat-loss protocol engineered for a right BKA athlete. 5-day split, rehab prep, BKA-adjusted nutrition math." />
 
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-panel: #141414;
-            --bg-hover: #1f1f1f;
-            --volt: #ccff00;
-            --text-main: #f5f5f5;
-            --text-dim: #888888;
-            --border: #222222;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
+<style>
+:root{
+  --bg-base:#0a0a0a;
+  --bg-elev:#111111;
+  --bg-panel:#161616;
+  --bg-hover:#1c1c1c;
+  --bg-card:#131313;
+  --volt:#d4ff00;
+  --volt-soft:rgba(212,255,0,.08);
+  --volt-mid:rgba(212,255,0,.2);
+  --text:#f6f6f6;
+  --text-dim:#8a8a8a;
+  --text-ghost:#4a4a4a;
+  --border:#1f1f1f;
+  --border-strong:#2c2c2c;
+  --warn:#ff5b3a;
+  --info:#39d3ff;
+  --good:#3aff88;
+}
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
 
-        /* SIDEBAR NAVIGATION */
-        nav {
-            width: 280px;
-            background-color: var(--bg-panel);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 40px 0;
-            flex-shrink: 0;
-        }
+html,body{background:var(--bg-base);color:var(--text);font-family:'Inter Tight',sans-serif;}
+body{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  min-height:100vh;
+  background-image:
+    radial-gradient(circle at 0% 0%,rgba(212,255,0,.04),transparent 40%),
+    radial-gradient(circle at 100% 100%,rgba(212,255,0,.02),transparent 40%);
+}
 
-        .brand {
-            font-family: 'Teko', sans-serif;
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--volt);
-            padding: 0 30px;
-            margin-bottom: 50px;
-            line-height: 1;
-        }
+/* Grain overlay for atmosphere */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='.9' /></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/></svg>");
+  opacity:.04;
+  pointer-events:none;
+  z-index:9999;
+  mix-blend-mode:overlay;
+}
 
-        .nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
+/* ───── SIDEBAR ───── */
+aside.nav{
+  background:var(--bg-elev);
+  border-right:1px solid var(--border);
+  padding:30px 0 20px;
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+}
+aside.nav::-webkit-scrollbar{width:0;}
 
-        .nav-item {
-            padding: 15px 30px;
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-left: 4px solid transparent;
-        }
+.brand{
+  padding:0 26px;
+  margin-bottom:30px;
+  display:flex;align-items:flex-start;gap:12px;
+}
+.brand-mark{
+  width:36px;height:36px;
+  background:var(--volt);
+  position:relative;flex-shrink:0;
+  clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%);
+}
+.brand-mark::after{
+  content:"";position:absolute;inset:6px;
+  background:var(--bg-elev);
+  clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%);
+}
+.brand-mark::before{
+  content:"K";position:absolute;inset:0;
+  display:grid;place-items:center;
+  font-family:'Teko',sans-serif;font-size:30px;
+  color:var(--volt);z-index:2;line-height:1;padding-top:2px;
+}
+.brand-text{
+  font-family:'Teko',sans-serif;
+  font-size:2rem;line-height:.85;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.brand-text small{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.55rem;letter-spacing:3px;
+  color:var(--text-dim);
+  margin-top:6px;font-weight:400;
+}
 
-        .nav-item:hover {
-            color: var(--text-main);
-            background-color: var(--bg-hover);
-        }
+.status-pill{
+  margin:0 26px 25px;
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;
+  background:var(--bg-panel);
+  border:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--text-dim);
+}
+.dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--good);
+  box-shadow:0 0 12px var(--good);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-        .nav-item.active {
-            color: var(--bg-dark);
-            background-color: var(--volt);
-            border-left: 4px solid #fff;
-        }
+.nav-section-label{
+  padding:0 26px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;letter-spacing:2.5px;
+  color:var(--text-ghost);
+  text-transform:uppercase;
+  margin:10px 0 8px;
+}
 
-        /* MAIN CONTENT AREA */
-        main {
-            flex-grow: 1;
-            padding: 50px 80px;
-            overflow-y: auto;
-            position: relative;
-        }
+.nav-item{
+  display:flex;align-items:center;gap:14px;
+  padding:13px 26px;
+  color:var(--text-dim);
+  font-size:.82rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:1.2px;
+  cursor:pointer;
+  border-left:3px solid transparent;
+  transition:all .15s ease;
+  position:relative;
+}
+.nav-item:hover{color:var(--text);background:var(--bg-hover);}
+.nav-item.active{
+  color:var(--volt);
+  background:linear-gradient(90deg,var(--volt-soft),transparent);
+  border-left-color:var(--volt);
+}
+.nav-item .idx{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;color:var(--text-ghost);
+  font-weight:400;
+}
+.nav-item.active .idx{color:var(--volt);}
 
-        .page {
-            display: none;
-            animation: fadeIn 0.4s ease forwards;
-        }
+.nav-foot{
+  margin-top:auto;
+  padding:20px 26px 0;
+  border-top:1px dashed var(--border-strong);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;letter-spacing:1.5px;
+  color:var(--text-ghost);line-height:1.8;
+}
 
-        .page.active {
-            display: block;
-        }
+/* ───── MAIN ───── */
+main{
+  padding:36px 56px 80px;
+  max-width:1400px;
+  width:100%;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* Top bar */
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:36px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--border);
+}
+.bread{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;letter-spacing:2px;
+  color:var(--text-dim);
+  text-transform:uppercase;
+}
+.bread span{color:var(--volt);}
+.topbar-right{
+  display:flex;gap:18px;align-items:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;letter-spacing:1.5px;
+  color:var(--text-dim);
+}
+.live-clock{color:var(--volt);}
 
-        h1 {
-            font-family: 'Teko', sans-serif;
-            font-size: 5rem;
-            text-transform: uppercase;
-            line-height: 0.9;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
+/* Page system */
+.page{display:none;animation:slide-in .5s cubic-bezier(.22,1,.36,1);}
+.page.active{display:block;}
+@keyframes slide-in{
+  from{opacity:0;transform:translateY(12px);}
+  to{opacity:1;transform:translateY(0);}
+}
 
-        h2 {
-            font-size: 1.5rem;
-            color: var(--volt);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 40px 0 20px 0;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-        }
+/* Display headings */
+.display{
+  font-family:'Teko',sans-serif;
+  font-size:5.5rem;line-height:.88;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  font-weight:600;
+}
+.display .accent{color:var(--volt);}
+.display .stencil{
+  -webkit-text-stroke:1.5px var(--volt);
+  color:transparent;
+}
+.subhead{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;letter-spacing:3px;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.subhead::before{
+  content:"";width:24px;height:1px;background:var(--volt);
+}
 
-        p {
-            color: var(--text-dim);
-            line-height: 1.8;
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin-bottom: 20px;
-        }
+h2.section{
+  font-family:'Teko',sans-serif;
+  font-size:2.2rem;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin:50px 0 22px;
+  display:flex;align-items:flex-end;gap:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+h2.section .num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;letter-spacing:2px;
+  color:var(--volt);
+  margin-bottom:6px;
+  font-weight:400;
+}
+h2.section .title-text{flex:1;}
+h2.section .meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;color:var(--text-dim);
+  margin-bottom:8px;letter-spacing:1.5px;
+}
 
-        /* STATS BAR */
-        .stats-bar {
-            display: flex;
-            gap: 40px;
-            margin-bottom: 50px;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border);
-        }
+p.body{
+  color:var(--text-dim);line-height:1.75;
+  font-size:1.02rem;max-width:760px;
+  margin-bottom:18px;
+}
+p.body strong{color:var(--text);font-weight:600;}
 
-        .stat-box {
-            display: flex;
-            flex-direction: column;
-        }
+/* ───── OVERVIEW: Stats grid ───── */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin:28px 0 40px;
+}
+.stat{
+  background:var(--bg-panel);
+  border:1px solid var(--border);
+  padding:22px 20px;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .2s;
+}
+.stat:hover{border-color:var(--volt);}
+.stat::after{
+  content:"";position:absolute;top:0;right:0;
+  width:18px;height:18px;
+  border-top:1px solid var(--volt);
+  border-right:1px solid var(--volt);
+}
+.stat-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;letter-spacing:2px;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+.stat-value{
+  font-family:'Teko',sans-serif;
+  font-size:3.2rem;line-height:.9;
+  color:var(--volt);
+}
+.stat-value small{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.9rem;color:var(--text-dim);
+  margin-left:6px;
+}
+.stat-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;color:var(--text-ghost);
+  letter-spacing:1.5px;margin-top:8px;
+  text-transform:uppercase;
+}
 
-        .stat-label {
-            color: var(--text-dim);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
+/* ───── Calculator ───── */
+.calc-grid{
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:24px;margin:28px 0;
+}
+.calc-inputs,.calc-outputs{
+  background:var(--bg-panel);
+  border:1px solid var(--border);
+  padding:28px;
+  position:relative;
+}
+.calc-inputs::before,.calc-outputs::before{
+  content:"";position:absolute;top:-1px;left:-1px;
+  width:30px;height:2px;background:var(--volt);
+}
+.calc-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;letter-spacing:2.5px;
+  color:var(--text-dim);text-transform:uppercase;
+  margin-bottom:22px;
+}
 
-        .stat-value {
-            font-family: 'Teko', sans-serif;
-            font-size: 2.5rem;
-            color: var(--volt);
-            line-height: 1;
-        }
+.input-row{
+  display:flex;flex-direction:column;gap:6px;
+  margin-bottom:18px;
+}
+.input-row label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;letter-spacing:1.5px;
+  color:var(--text-dim);text-transform:uppercase;
+}
+.input-row input,.input-row select{
+  background:var(--bg-base);
+  border:1px solid var(--border-strong);
+  color:var(--text);
+  padding:12px 14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.95rem;
+  outline:none;
+  transition:border-color .15s;
+}
+.input-row input:focus,.input-row select:focus{
+  border-color:var(--volt);
+}
 
-        /* CARDS / PROTOCOLS */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
+.toggle-row{
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+.toggle{
+  flex:1;
+  padding:10px;
+  background:var(--bg-base);
+  border:1px solid var(--border-strong);
+  color:var(--text-dim);
+  cursor:pointer;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;letter-spacing:1.5px;
+  text-transform:uppercase;
+  text-align:center;
+  transition:all .15s;
+}
+.toggle.active{
+  background:var(--volt);
+  color:var(--bg-base);
+  border-color:var(--volt);
+  font-weight:700;
+}
+.toggle:hover:not(.active){color:var(--text);border-color:var(--volt-mid);}
 
-        .card {
-            background-color: var(--bg-panel);
-            border: 1px solid var(--border);
-            padding: 30px;
-            transition: transform 0.2s;
-        }
+.output-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:14px 0;
+  border-bottom:1px dashed var(--border-strong);
+}
+.output-row:last-child{border-bottom:0;}
+.output-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;letter-spacing:1.5px;
+  color:var(--text-dim);text-transform:uppercase;
+}
+.output-value{
+  font-family:'Teko',sans-serif;
+  font-size:2rem;color:var(--volt);
+  line-height:1;
+}
+.output-value small{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;color:var(--text-dim);
+  margin-left:6px;
+}
+.macro-bar{
+  display:flex;height:8px;
+  margin:18px 0 8px;
+  overflow:hidden;
+}
+.macro-seg{height:100%;transition:width .4s;}
+.macro-p{background:var(--volt);}
+.macro-c{background:#ffb800;}
+.macro-f{background:var(--info);}
+.macro-legend{
+  display:flex;justify-content:space-between;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;color:var(--text-dim);
+  letter-spacing:1px;
+}
+.macro-legend span b{color:var(--text);font-weight:600;}
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--volt);
-        }
+.calc-note{
+  margin-top:16px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;letter-spacing:1px;
+  color:var(--text-ghost);line-height:1.7;
+  padding:10px;border-left:2px solid var(--volt-mid);
+  background:var(--volt-soft);
+}
 
-        .card-tag {
-            background: var(--text-main);
-            color: var(--bg-dark);
-            padding: 4px 10px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
+/* ───── Cards (rehab) ───── */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:14px;margin-bottom:30px;
+}
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  padding:24px;
+  transition:all .2s;
+  position:relative;
+}
+.card:hover{
+  border-color:var(--volt);
+  transform:translateY(-3px);
+}
+.card-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;letter-spacing:2px;
+  background:var(--text);color:var(--bg-base);
+  padding:4px 8px;
+  text-transform:uppercase;
+  display:inline-block;
+  margin-bottom:14px;font-weight:700;
+}
+.card-tag.volt{background:var(--volt);}
+.card h3{
+  font-family:'Teko',sans-serif;
+  font-size:1.5rem;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  margin-bottom:10px;
+}
+.card p{
+  font-size:.88rem;color:var(--text-dim);
+  line-height:1.65;margin-bottom:16px;
+}
+.prescription{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;color:var(--volt);
+  background:var(--volt-soft);
+  border-left:2px solid var(--volt);
+  padding:10px 12px;
+  letter-spacing:1px;
+}
 
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
+/* ───── Today panel ───── */
+.today-panel{
+  background:linear-gradient(135deg,var(--bg-panel),var(--bg-base));
+  border:1px solid var(--volt);
+  padding:30px;
+  margin-bottom:30px;
+  position:relative;
+  overflow:hidden;
+}
+.today-panel::before{
+  content:"";position:absolute;
+  top:-50%;right:-10%;width:300px;height:300px;
+  background:radial-gradient(circle,var(--volt-soft),transparent 70%);
+  pointer-events:none;
+}
+.today-flag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;letter-spacing:2px;
+  color:var(--volt);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.today-flag .dot{background:var(--volt);box-shadow:0 0 12px var(--volt);}
+.today-title{
+  font-family:'Teko',sans-serif;
+  font-size:2.6rem;
+  text-transform:uppercase;
+  line-height:.95;
+}
+.today-sub{
+  color:var(--text-dim);
+  font-size:.95rem;margin-top:8px;
+}
+.today-cta{
+  margin-top:18px;
+  display:inline-block;
+  padding:12px 22px;
+  background:var(--volt);
+  color:var(--bg-base);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border:0;cursor:pointer;
+  transition:transform .15s;
+}
+.today-cta:hover{transform:translate(2px,-2px);box-shadow:-4px 4px 0 var(--text);}
 
-        .card p {
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
+/* ───── Training day tabs ───── */
+.day-tabs{
+  display:flex;gap:0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:24px;
+  overflow-x:auto;
+}
+.day-tab{
+  background:transparent;
+  border:0;
+  padding:16px 22px;
+  color:var(--text-dim);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;letter-spacing:1.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+  transition:all .15s;
+}
+.day-tab:hover{color:var(--text);}
+.day-tab.active{
+  color:var(--volt);
+  border-bottom-color:var(--volt);
+}
+.day-tab .day-num{
+  font-size:.6rem;color:var(--text-ghost);
+}
+.day-tab.active .day-num{color:var(--volt);}
+.day-tab.done::after{
+  content:"✓";color:var(--good);margin-left:6px;
+}
 
-        .prescription {
-            color: var(--volt);
-            font-family: monospace;
-            font-size: 0.9rem;
-            font-weight: 600;
-            background: rgba(204, 255, 0, 0.05);
-            padding: 10px;
-            border-left: 2px solid var(--volt);
-        }
+.day-panel{display:none;}
+.day-panel.active{display:block;animation:slide-in .35s ease;}
 
-        /* WORKOUT TABLES */
-        .workout-table {
-            width: 100%;
-            max-width: 900px;
-            border-collapse: collapse;
-            margin-bottom: 40px;
-        }
+.day-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-end;flex-wrap:wrap;gap:20px;
+  margin-bottom:20px;
+}
+.day-meta-grid{
+  display:flex;gap:30px;flex-wrap:wrap;
+}
+.day-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;letter-spacing:1.5px;
+}
+.day-meta b{
+  display:block;
+  font-family:'Teko',sans-serif;
+  font-size:1.6rem;color:var(--volt);
+  line-height:1;letter-spacing:.5px;
+  margin-bottom:4px;
+}
+.day-meta span{color:var(--text-dim);text-transform:uppercase;}
 
-        .workout-table th, .workout-table td {
-            text-align: left;
-            padding: 15px;
-            border-bottom: 1px solid var(--border);
-        }
+/* Exercise list */
+.exercise{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  margin-bottom:8px;
+  transition:border-color .15s;
+}
+.exercise:hover{border-color:var(--border-strong);}
+.exercise.done{border-color:var(--good);background:rgba(58,255,136,.03);}
+.exercise.done .ex-name{text-decoration:line-through;color:var(--text-dim);}
 
-        .workout-table th {
-            color: var(--volt);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
+.ex-row{
+  display:grid;
+  grid-template-columns:38px 1fr 100px 100px 100px;
+  align-items:center;
+  padding:16px 20px;
+  gap:14px;
+  cursor:pointer;
+}
+.ex-check{
+  width:24px;height:24px;
+  border:1.5px solid var(--border-strong);
+  display:grid;place-items:center;
+  cursor:pointer;
+  transition:all .15s;
+  flex-shrink:0;
+}
+.ex-check:hover{border-color:var(--volt);}
+.exercise.done .ex-check{
+  background:var(--good);border-color:var(--good);
+  color:var(--bg-base);font-weight:800;
+}
+.exercise.done .ex-check::after{content:"✓";font-size:14px;}
 
-        .workout-table tr:hover td {
-            background-color: var(--bg-hover);
-        }
+.ex-name{
+  font-weight:600;font-size:.95rem;
+}
+.ex-name small{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;color:var(--text-dim);
+  letter-spacing:1px;margin-top:3px;
+  font-weight:400;
+}
+.ex-data{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.85rem;
+  text-align:center;
+}
+.ex-data b{color:var(--volt);font-weight:700;}
+.ex-data span{
+  display:block;font-size:.55rem;
+  color:var(--text-ghost);letter-spacing:1.5px;
+  text-transform:uppercase;margin-top:2px;
+}
+.ex-expand-btn{
+  background:transparent;border:1px solid var(--border-strong);
+  color:var(--text-dim);
+  width:32px;height:32px;
+  cursor:pointer;justify-self:end;
+  font-family:'JetBrains Mono',monospace;
+  transition:all .15s;
+}
+.ex-expand-btn:hover{border-color:var(--volt);color:var(--volt);}
 
-        .workout-table td:first-child {
-            font-weight: 600;
-            color: var(--text-main);
-        }
+.ex-detail{
+  display:none;
+  padding:0 20px 20px 70px;
+  border-top:1px dashed var(--border-strong);
+  font-size:.88rem;color:var(--text-dim);
+  line-height:1.7;
+}
+.exercise.expanded .ex-detail{display:block;padding-top:16px;}
+.ex-detail-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:18px;margin-top:10px;
+}
+.ex-detail-grid > div b{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;letter-spacing:1.5px;
+  color:var(--volt);text-transform:uppercase;
+  margin-bottom:6px;
+}
 
-        .rules-list li {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: var(--text-dim);
-            padding-left: 20px;
-            border-left: 2px solid var(--volt);
-            list-style: none;
-        }
-    </style>
+/* Progress bar */
+.day-progress{
+  height:4px;background:var(--bg-panel);
+  margin-bottom:20px;overflow:hidden;
+}
+.day-progress-fill{
+  height:100%;background:var(--volt);
+  width:0%;transition:width .4s;
+  box-shadow:0 0 12px var(--volt);
+}
+
+/* Rest timer */
+.timer-bar{
+  position:fixed;bottom:0;right:0;
+  background:var(--bg-panel);
+  border-top:2px solid var(--volt);
+  border-left:1px solid var(--border-strong);
+  padding:14px 22px;
+  display:flex;gap:18px;align-items:center;
+  z-index:100;
+  transform:translateY(120%);
+  transition:transform .3s;
+  min-width:340px;
+}
+.timer-bar.active{transform:translateY(0);}
+.timer-display{
+  font-family:'Teko',sans-serif;
+  font-size:3rem;line-height:.9;
+  color:var(--volt);
+}
+.timer-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;letter-spacing:2px;
+  color:var(--text-dim);text-transform:uppercase;
+  margin-bottom:4px;
+}
+.timer-controls{display:flex;gap:6px;margin-left:auto;}
+.timer-btn{
+  background:var(--bg-base);
+  border:1px solid var(--border-strong);
+  color:var(--text);
+  padding:8px 12px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;letter-spacing:1.5px;
+  text-transform:uppercase;cursor:pointer;
+  transition:all .15s;
+}
+.timer-btn:hover{border-color:var(--volt);color:var(--volt);}
+.timer-btn.primary{background:var(--volt);color:var(--bg-base);border-color:var(--volt);font-weight:700;}
+
+.rest-quick{
+  display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;
+}
+.rest-quick button{
+  background:var(--bg-panel);
+  border:1px solid var(--border-strong);
+  color:var(--text-dim);
+  padding:6px 10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;letter-spacing:1px;
+  cursor:pointer;
+  transition:all .15s;
+}
+.rest-quick button:hover{
+  border-color:var(--volt);color:var(--volt);
+}
+
+/* Rules */
+.rules-list{list-style:none;}
+.rule{
+  display:grid;
+  grid-template-columns:60px 1fr;
+  gap:24px;padding:24px 0;
+  border-bottom:1px solid var(--border);
+}
+.rule-num{
+  font-family:'Teko',sans-serif;
+  font-size:3.5rem;
+  color:var(--volt);
+  -webkit-text-stroke:1px var(--volt);
+  line-height:.85;
+}
+.rule-body strong{
+  display:block;
+  font-family:'Teko',sans-serif;
+  font-size:1.6rem;letter-spacing:.5px;
+  text-transform:uppercase;
+  color:var(--text);
+  margin-bottom:6px;
+}
+.rule-body p{
+  color:var(--text-dim);line-height:1.7;
+  max-width:740px;
+}
+
+/* Progress page */
+.tracker-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.tracker-card{
+  background:var(--bg-panel);
+  border:1px solid var(--border);
+  padding:28px;
+}
+.tracker-card h3{
+  font-family:'Teko',sans-serif;
+  font-size:1.8rem;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+.weight-list{list-style:none;max-height:200px;overflow-y:auto;}
+.weight-list li{
+  display:flex;justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px dashed var(--border-strong);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.85rem;
+}
+.weight-list li span:first-child{color:var(--text-dim);}
+.weight-list li span:last-child{color:var(--volt);font-weight:700;}
+.add-weight{
+  display:flex;gap:8px;margin-top:14px;
+}
+.add-weight input{
+  flex:1;
+  background:var(--bg-base);
+  border:1px solid var(--border-strong);
+  color:var(--text);
+  padding:10px 12px;
+  font-family:'JetBrains Mono',monospace;
+  outline:none;
+}
+.add-weight input:focus{border-color:var(--volt);}
+.add-weight button{
+  background:var(--volt);color:var(--bg-base);
+  border:0;padding:10px 18px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;font-weight:700;letter-spacing:1.5px;
+  cursor:pointer;text-transform:uppercase;
+}
+
+.hydration{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:6px;margin:18px 0;
+}
+.hydra-glass{
+  aspect-ratio:1;
+  background:var(--bg-base);
+  border:1.5px solid var(--border-strong);
+  cursor:pointer;
+  transition:all .15s;
+  position:relative;
+}
+.hydra-glass:hover{border-color:var(--volt-mid);}
+.hydra-glass.full{
+  background:var(--volt);
+  border-color:var(--volt);
+}
+
+.week-bars{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+  margin-top:16px;
+  align-items:end;
+  height:120px;
+}
+.day-bar{
+  background:var(--bg-base);
+  border:1px solid var(--border-strong);
+  position:relative;
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.day-bar-fill{
+  width:100%;
+  background:var(--volt);
+  transition:height .4s;
+  display:grid;place-items:end center;
+  padding-bottom:4px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;color:var(--bg-base);
+  font-weight:700;
+}
+.day-bar-label{
+  position:absolute;bottom:-22px;left:0;right:0;
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;color:var(--text-ghost);
+  letter-spacing:1.5px;text-transform:uppercase;
+}
+
+.reset-btn{
+  margin-top:24px;
+  background:transparent;
+  color:var(--warn);
+  border:1px solid var(--warn);
+  padding:10px 16px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;letter-spacing:1.5px;
+  text-transform:uppercase;cursor:pointer;
+  transition:all .15s;
+}
+.reset-btn:hover{background:var(--warn);color:var(--bg-base);}
+
+/* Responsive */
+@media (max-width:1000px){
+  body{grid-template-columns:1fr;}
+  aside.nav{
+    position:relative;height:auto;
+    flex-direction:row;flex-wrap:wrap;
+    padding:18px;align-items:center;gap:10px;
+  }
+  .brand{margin-bottom:0;padding:0;}
+  .status-pill,.nav-section-label,.nav-foot{display:none;}
+  .nav-links{display:flex;flex-wrap:wrap;gap:4px;width:100%;}
+  .nav-item{padding:8px 12px;border-left:0;border-bottom:2px solid transparent;font-size:.7rem;}
+  .nav-item.active{border-left:0;border-bottom-color:var(--volt);background:var(--volt-soft);}
+  main{padding:24px 20px 80px;}
+  .display{font-size:3.2rem;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .calc-grid,.tracker-grid{grid-template-columns:1fr;}
+  .ex-row{grid-template-columns:32px 1fr;gap:10px;padding:14px;}
+  .ex-row > .ex-data,.ex-row > .ex-expand-btn{display:none;}
+  .ex-name small{margin-top:6px;}
+  .timer-bar{left:0;right:0;width:100%;min-width:0;}
+}
+</style>
 </head>
 <body>
 
-    <!-- SIDEBAR NAV -->
-    <nav>
-        <div class="brand">KINETIC<br>PROTOCOL</div>
-        <div class="nav-links">
-            <div class="nav-item active" onclick="switchPage('page-overview')">01. Overview</div>
-            <div class="nav-item" onclick="switchPage('page-rehab')">02. Rehab Protocol</div>
-            <div class="nav-item" onclick="switchPage('page-training')">03. 5-Day Routine</div>
-            <div class="nav-item" onclick="switchPage('page-rules')">04. Iron Rules</div>
+<!-- ══════ SIDEBAR ══════ -->
+<aside class="nav">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    <div class="brand-text">Kinetic<br>Protocol<small>// v2.0 ATHLETE OS</small></div>
+  </div>
+
+  <div class="status-pill">
+    <span class="dot"></span>SYSTEM ONLINE
+  </div>
+
+  <div class="nav-section-label">// Modules</div>
+  <div class="nav-links">
+    <div class="nav-item active" data-page="overview"><span class="idx">01</span>Overview</div>
+    <div class="nav-item" data-page="nutrition"><span class="idx">02</span>Nutrition Math</div>
+    <div class="nav-item" data-page="rehab"><span class="idx">03</span>Rehab Prep</div>
+    <div class="nav-item" data-page="training"><span class="idx">04</span>5-Day Training</div>
+    <div class="nav-item" data-page="rules"><span class="idx">05</span>Iron Rules</div>
+    <div class="nav-item" data-page="tracker"><span class="idx">06</span>Progress Log</div>
+  </div>
+
+  <div class="nav-foot">
+    ATHLETE_ID: 0001<br>
+    CLASSIFICATION: RT-BKA<br>
+    BUILD 2026.05
+  </div>
+</aside>
+
+<!-- ══════ MAIN ══════ -->
+<main>
+  <div class="topbar">
+    <div class="bread"><span id="bread-section">// OVERVIEW</span> &nbsp;/&nbsp; <span id="bread-detail">athlete base</span></div>
+    <div class="topbar-right">
+      <span id="today-name">—</span>
+      <span class="live-clock" id="clock">--:--:--</span>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: OVERVIEW ===== -->
+  <section class="page active" id="page-overview">
+    <div class="subhead">athlete dossier // entry 0001</div>
+    <h1 class="display">Athlete <span class="accent">Base</span></h1>
+
+    <div class="today-panel">
+      <div class="today-flag"><span class="dot"></span>TODAY'S DIRECTIVE</div>
+      <div class="today-title" id="today-headline">Loading…</div>
+      <div class="today-sub" id="today-summary">—</div>
+      <button class="today-cta" onclick="goToToday()">→ Go to Workout</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-label">Height</div>
+        <div class="stat-value">5'8"<small>173cm</small></div>
+        <div class="stat-sub">Locked baseline</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Body Mass</div>
+        <div class="stat-value" id="overview-weight">93<small>kg</small></div>
+        <div class="stat-sub" id="overview-weight-trend">Update in tracker</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">BMI Index</div>
+        <div class="stat-value" id="overview-bmi">31.1</div>
+        <div class="stat-sub" id="overview-bmi-cat">Obese Class I</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Constraint</div>
+        <div class="stat-value">RT BKA</div>
+        <div class="stat-sub">Right below-knee</div>
+      </div>
+    </div>
+
+    <h2 class="section">
+      <span>
+        <div class="num">// 01.A</div>
+        <span class="title-text">Reality Check</span>
+      </span>
+      <span class="meta">Honest assessment</span>
+    </h2>
+    <p class="body">At <strong>93 kg on a 5'8" frame</strong>, joint load is significant — and it's <em>not symmetric</em>. The right BKA forces the left side of the kinetic chain to absorb compensatory loading: left ankle, left knee, left hip, and the right hip socket all take more than their share. The left shoulder typically rides high as a counterweight to balance gait.</p>
+    <p class="body"><strong>The mission, in order:</strong> (1) strip body fat to reduce joint load — that's a nutrition problem, not a training one. (2) Build a posterior-chain engine that fixes the lateral lean. (3) Eliminate every exercise that asks the residual limb or compromised side to absorb impact.</p>
+
+    <h2 class="section">
+      <span>
+        <div class="num">// 01.B</div>
+        <span class="title-text">Operating Principles</span>
+      </span>
+      <span class="meta">Non-negotiable</span>
+    </h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag volt">PRINCIPLE</div>
+        <h3>Stability First</h3>
+        <p>Every upper-body lift uses a chest support, bench, or machine. Standing free-weight rows or overhead presses transfer rotational load to a foundation that can't accept it.</p>
+        <div class="prescription">RULE 01 // SUPPORTED ONLY</div>
+      </div>
+      <div class="card">
+        <div class="card-tag volt">PRINCIPLE</div>
+        <h3>Pull &gt; Push</h3>
+        <p>2:1 ratio of pulling to pushing. Counteracts the forward slump that always follows lateral compensation, opens the chest, and pulls the head back over the spine.</p>
+        <div class="prescription">RULE 02 // 2X PULL VOLUME</div>
+      </div>
+      <div class="card">
+        <div class="card-tag volt">PRINCIPLE</div>
+        <h3>Hip Hinge Sacred</h3>
+        <p>The hip hinge — not the squat — is the lift that rebuilds glute strength without grinding the right socket. Cable pull-throughs and back extensions before any deadlift variation.</p>
+        <div class="prescription">RULE 03 // HINGE BEFORE LOAD</div>
+      </div>
+      <div class="card">
+        <div class="card-tag volt">PRINCIPLE</div>
+        <h3>Diet Dictates Gravity</h3>
+        <p>Caloric deficit is biomechanical, not cosmetic. Every kilo down reduces ~4kg of force through the left ankle at heel strike. Eat for the joints, not the mirror.</p>
+        <div class="prescription">RULE 04 // 500 KCAL DEFICIT</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: NUTRITION ===== -->
+  <section class="page" id="page-nutrition">
+    <div class="subhead">module 02 // energy + macronutrients</div>
+    <h1 class="display"><span class="stencil">Nutrition</span> Math</h1>
+
+    <p class="body" style="margin-top:24px;">Below is a <strong>BKA-adjusted</strong> calorie engine. Standard Mifflin-St Jeor over-estimates daily expenditure for limb-loss athletes because the formula assumes a complete body. Toggle the adjustment to see the corrected math.</p>
+
+    <div class="calc-grid">
+      <div class="calc-inputs">
+        <div class="calc-title">// INPUTS</div>
+
+        <div class="input-row">
+          <label>Body Weight (kg)</label>
+          <input type="number" id="in-weight" value="93" min="40" max="200" step="0.5"/>
         </div>
-    </nav>
 
-    <!-- MAIN CONTENT -->
-    <main>
+        <div class="input-row">
+          <label>Height (cm)</label>
+          <input type="number" id="in-height" value="173" min="120" max="220"/>
+        </div>
 
-        <!-- PAGE 1: OVERVIEW -->
-        <section id="page-overview" class="page active">
-            <h1>Athlete Base</h1>
-            
-            <div class="stats-bar">
-                <div class="stat-box">
-                    <div class="stat-label">Height</div>
-                    <div class="stat-value">5'8"</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">Weight</div>
-                    <div class="stat-value">93 KG</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">Primary Constraint</div>
-                    <div class="stat-value">RT BKA</div>
-                </div>
-            </div>
+        <div class="input-row">
+          <label>Age</label>
+          <input type="number" id="in-age" value="30" min="14" max="90"/>
+        </div>
 
-            <h2>Assessment Reality Check</h2>
-            <p>At 93kg, your joints are under significant mechanical load, exacerbated by the kinetic compensations from your right BKA. Your left leg is taking the brunt of the force, and your left shoulder is acting as a counterweight. </p>
-            <p><strong>The Mission:</strong> Strip body fat to reduce joint load, strengthen the posterior chain to fix the lateral lean, and eliminate exercises that cause unnecessary impact. Nutrition will drive the weight loss; this protocol builds the engine.</p>
-        </section>
+        <div class="input-row">
+          <label>Activity Level</label>
+          <div class="toggle-row" id="activity-toggles">
+            <div class="toggle" data-val="1.2">Sedentary</div>
+            <div class="toggle active" data-val="1.375">Light</div>
+            <div class="toggle" data-val="1.55">Moderate</div>
+            <div class="toggle" data-val="1.725">High</div>
+          </div>
+        </div>
 
-        <!-- PAGE 2: REHAB -->
-        <section id="page-rehab" class="page">
-            <h1>Rehab Prep</h1>
-            <p>Do this 10-minute circuit BEFORE you touch a weight. It primes the nervous system and unlocks the compensations.</p>
+        <div class="input-row">
+          <label>Goal</label>
+          <div class="toggle-row" id="goal-toggles">
+            <div class="toggle active" data-val="-500">Cut (-500)</div>
+            <div class="toggle" data-val="-250">Slow Cut</div>
+            <div class="toggle" data-val="0">Maintain</div>
+            <div class="toggle" data-val="250">Lean Gain</div>
+          </div>
+        </div>
 
-            <h2>Phase 1: Release</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-tag">Upper</div>
-                    <h3>Left Pec Minor Doorway</h3>
-                    <p>Forearm against doorframe. Rotate sternum right. Opens the anterior shoulder.</p>
-                    <div class="prescription">2 SETS × 60 SECONDS</div>
-                </div>
-                <div class="card">
-                    <div class="card-tag">Nerve</div>
-                    <h3>Left Sciatic Flossing</h3>
-                    <p>Slump seated. Straighten leg/point toes down, bend knee/pull toes up. Do not hold.</p>
-                    <div class="prescription">15 CONTINUOUS PUMPS</div>
-                </div>
-            </div>
+        <div class="input-row">
+          <label>BKA Adjustment</label>
+          <div class="toggle-row" id="bka-toggles">
+            <div class="toggle active" data-val="0.941">RT BKA (-5.9%)</div>
+            <div class="toggle" data-val="1">Standard</div>
+          </div>
+        </div>
+      </div>
 
-            <h2>Phase 2: Activation</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-tag">Core/Hip</div>
-                    <h3>Right Side Clamshells</h3>
-                    <p>Lie on left side. Lift right knee. Keep heels together. Wakes up the dead glute medius.</p>
-                    <div class="prescription">2 SETS × 15 REPS (SLOW)</div>
-                </div>
-                <div class="card">
-                    <div class="card-tag">Scapula</div>
-                    <h3>Strict Scapular Push-Ups</h3>
-                    <p>Plank position, elbows locked. Sink blades, then push the floor away aggressively.</p>
-                    <div class="prescription">2 SETS × 12 REPS</div>
-                </div>
-            </div>
-        </section>
+      <div class="calc-outputs">
+        <div class="calc-title">// OUTPUTS</div>
 
-        <!-- PAGE 3: TRAINING -->
-        <section id="page-training" class="page">
-            <h1>5-Day Routine</h1>
-            <p>Designed for fat loss and muscle retention while protecting the left ankle and right hip. Zero barbell squats. Zero heavy deadlifts from the floor. Heavy emphasis on back (pulling) to fix posture.</p>
+        <div class="output-row">
+          <span class="output-label">BMR (adjusted)</span>
+          <span class="output-value" id="out-bmr">—<small>kcal</small></span>
+        </div>
+        <div class="output-row">
+          <span class="output-label">TDEE</span>
+          <span class="output-value" id="out-tdee">—<small>kcal</small></span>
+        </div>
+        <div class="output-row">
+          <span class="output-label">Daily Target</span>
+          <span class="output-value" id="out-target">—<small>kcal</small></span>
+        </div>
 
-            <h2>Day 1: Upper Body Pull (Back/Biceps)</h2>
-            <table class="workout-table">
-                <tr><th>Movement</th><th>Sets</th><th>Reps</th><th>Notes</th></tr>
-                <tr><td>Chest-Supported T-Bar Row</td><td>4</td><td>8-10</td><td>Protects lower back. Pull with elbows.</td></tr>
-                <tr><td>Lat Pulldown (Wide Grip)</td><td>3</td><td>10-12</td><td>Pause for 1 sec at the bottom.</td></tr>
-                <tr><td>Single-Arm Cable Row</td><td>3</td><td>12/arm</td><td>Focus on twisting the torso slightly.</td></tr>
-                <tr><td>DB Hammer Curls</td><td>3</td><td>12</td><td>Keeps wrists neutral.</td></tr>
-            </table>
+        <div style="margin-top:24px;">
+          <div class="output-label" style="margin-bottom:8px;">Macro Split</div>
+          <div class="macro-bar">
+            <div class="macro-seg macro-p" id="bar-p"></div>
+            <div class="macro-seg macro-c" id="bar-c"></div>
+            <div class="macro-seg macro-f" id="bar-f"></div>
+          </div>
+          <div class="macro-legend">
+            <span><b id="leg-p">— P</b></span>
+            <span><b id="leg-c">— C</b></span>
+            <span><b id="leg-f">— F</b></span>
+          </div>
+        </div>
 
-            <h2>Day 2: Lower Body Base</h2>
-            <table class="workout-table">
-                <tr><th>Movement</th><th>Sets</th><th>Reps</th><th>Notes</th></tr>
-                <tr><td>Leg Press</td><td>4</td><td>10-15</td><td>Foot placement: high & wide to target glutes.</td></tr>
-                <tr><td>Bulgarian Split Squats</td><td>3</td><td>8/leg</td><td>Hold onto a rack for balance. Dumbbell in one hand.</td></tr>
-                <tr><td>Seated Leg Extensions</td><td>3</td><td>15</td><td>Slow controlled negatives.</td></tr>
-                <tr><td>Seated Hamstring Curls</td><td>3</td><td>15</td><td>Squeeze at the contraction.</td></tr>
-            </table>
+        <div class="calc-note">
+          NOTE: BKA adjustment subtracts ~5.9% body mass before BMR calc (Mozumdar & Roy, 2001). Standard Mifflin-St Jeor over-estimates by 200–350 kcal/day for unilateral BKA. Protein anchored at 2.2 g/kg adjusted body mass to preserve lean mass during deficit. Fat ≥ 0.8 g/kg for hormonal floor. Carbs fill remainder.
+        </div>
+      </div>
+    </div>
 
-            <h2>Day 3: Active Recovery / Zone 2</h2>
-            <p>45 Minutes: Assault Bike, Rowing Ergometer, or brisk walking. Keep heart rate around 120-130 BPM. No heavy lifting. Let the nervous system recover.</p>
+    <h2 class="section">
+      <span>
+        <div class="num">// 02.B</div>
+        <span class="title-text">Plate Rules</span>
+      </span>
+      <span class="meta">Daily defaults</span>
+    </h2>
 
-            <h2>Day 4: Upper Body Push (Chest/Shoulders/Triceps)</h2>
-            <table class="workout-table">
-                <tr><th>Movement</th><th>Sets</th><th>Reps</th><th>Notes</th></tr>
-                <tr><td>Incline Dumbbell Press</td><td>4</td><td>8-10</td><td>Tucked elbows (45 degrees). Protects the shoulder.</td></tr>
-                <tr><td>Seated DB Lateral Raises</td><td>4</td><td>15</td><td>Strict form. No trap shrugging.</td></tr>
-                <tr><td>Cable Tricep Pushdowns</td><td>3</td><td>12-15</td><td>Use a rope attachment.</td></tr>
-                <tr><td>Pec Deck / Machine Fly</td><td>3</td><td>15</td><td>Constant tension.</td></tr>
-            </table>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag">MEAL 1-4</div>
+        <h3>Protein Anchor</h3>
+        <p>Each meal must lead with a fist-sized portion of lean protein: chicken thigh, fish, eggs, Greek yogurt, paneer, lentils + soy. Hit your daily protein target first, every day.</p>
+        <div class="prescription">2.2 G / KG ADJ. BODY MASS</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">FIBER</div>
+        <h3>Volume Eating</h3>
+        <p>Half of every plate is fibrous vegetables. They displace calorie density, slow digestion, and keep hunger manageable in the deficit. Soups and salads are your friends.</p>
+        <div class="prescription">30+ G FIBER / DAY</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">HYDRATION</div>
+        <h3>Joint Lubrication</h3>
+        <p>3.5 L water minimum. The residual limb socket interface and the over-worked left side both benefit from hydrated connective tissue. Coffee/tea count for half.</p>
+        <div class="prescription">3.5 L H₂O / DAY</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">TIMING</div>
+        <h3>Pre-Lift Fuel</h3>
+        <p>30g carbs + 25g protein, 60–90 min before training. Whey + banana, or yogurt + oats. This is the only carb-heavy moment outside of post-workout. Train fueled.</p>
+        <div class="prescription">CARBS PRE + POST ONLY</div>
+      </div>
+    </div>
+  </section>
 
-            <h2>Day 5: Posterior Chain & Core</h2>
-            <table class="workout-table">
-                <tr><th>Movement</th><th>Sets</th><th>Reps</th><th>Notes</th></tr>
-                <tr><td>45-Degree Back Extensions</td><td>3</td><td>12-15</td><td>Squeeze glutes to lift, not lower back.</td></tr>
-                <tr><td>Cable Pull-Throughs</td><td>3</td><td>12</td><td>Re-teaches the hip hinge safely.</td></tr>
-                <tr><td>Pallof Press</td><td>3</td><td>10/side</td><td>Anti-rotation core work. Crucial for your lateral lean.</td></tr>
-                <tr><td>Assault Bike Intervals</td><td>6</td><td>20s sprint/40s rest</td><td>Finisher. Empty the tank.</td></tr>
-            </table>
-        </section>
+  <!-- ===== PAGE: REHAB ===== -->
+  <section class="page" id="page-rehab">
+    <div class="subhead">module 03 // pre-training prep</div>
+    <h1 class="display">Rehab <span class="accent">Prep</span></h1>
+    <p class="body" style="margin-top:24px;">A 10-minute circuit. Done BEFORE you touch a weight. Three phases — release, activate, integrate — designed to unlock the chronic compensations from prosthetic gait so the working set isn't reinforcing them.</p>
 
-        <!-- PAGE 4: RULES -->
-        <section id="page-rules" class="page">
-            <h1>The Iron Rules</h1>
-            <p>Violate these, and the compensations will return.</p>
+    <h2 class="section">
+      <span><div class="num">// PHASE 01</div><span class="title-text">Release</span></span>
+      <span class="meta">~3 min</span>
+    </h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag">UPPER</div>
+        <h3>Left Pec Minor Doorway</h3>
+        <p>Forearm against doorframe at 90°. Rotate sternum to the right until you feel the stretch under the collarbone. The left pec minor pulls the left shoulder forward to balance you — release it.</p>
+        <div class="prescription">2 × 60 SEC</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">NERVE</div>
+        <h3>Left Sciatic Floss</h3>
+        <p>Seated, slump posture. Straighten left leg + point toes down → bend knee + pull toes up. Pump continuously. Never hold the stretch — this is dynamic.</p>
+        <div class="prescription">15 PUMPS × 2</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">HIP</div>
+        <h3>Right Hip 90/90</h3>
+        <p>Seated 90/90 with the right (residual) leg forward. Rotate gently between internal and external. The right socket loses ROM fast — this preserves it.</p>
+        <div class="prescription">10 SLOW × 2 SIDES</div>
+      </div>
+    </div>
 
-            <ul class="rules-list">
-                <li><strong>Chest-Supported Only:</strong> Because your lower body foundation is asymmetrical, standing overhead presses or bent-over rows will force your lower back to twist. Always use a bench or machine to support your chest/back during upper body movements.</li>
-                <li><strong>The 2:1 Pull Ratio:</strong> For every pushing set (chest/front delts), you must do TWO pulling sets (back/rear delts). This pulls your shoulders back and fights the forward slump.</li>
-                <li><strong>Trap Stop Protocol:</strong> If you are doing lateral raises or rows and feel your neck/upper traps doing the work instead of the target muscle, drop the weight immediately. Your left trap is already overworked.</li>
-                <li><strong>Diet Dictates Gravity:</strong> At 93kg, every step sends massive force through your left foot and right socket. You cannot out-train a bad diet. Caloric deficit is a biomechanical requirement, not just a cosmetic one.</li>
-            </ul>
-        </section>
+    <h2 class="section">
+      <span><div class="num">// PHASE 02</div><span class="title-text">Activate</span></span>
+      <span class="meta">~4 min</span>
+    </h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag">GLUTE</div>
+        <h3>Right Side Clamshells</h3>
+        <p>Lie on left side. Heels together, lift right knee. The right glute medius has likely been dormant for years — this wakes it. Slow eccentric.</p>
+        <div class="prescription">2 × 15 (SLOW)</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">SCAP</div>
+        <h3>Scapular Push-Up</h3>
+        <p>Plank position, elbows locked. Sink shoulder blades, then push the floor away aggressively. Re-teaches scapular protraction without involving the elbow.</p>
+        <div class="prescription">2 × 12</div>
+      </div>
+      <div class="card">
+        <div class="card-tag">CORE</div>
+        <h3>Dead Bug (Anti-Extension)</h3>
+        <p>On back, arms up, knees bent at 90°. Lower opposite arm + leg while pressing low back into the floor. Don't let the ribcage flare. Core that resists rotation.</p>
+        <div class="prescription">2 × 8 / SIDE</div>
+      </div>
+    </div>
 
-    </main>
+    <h2 class="section">
+      <span><div class="num">// PHASE 03</div><span class="title-text">Integrate</span></span>
+      <span class="meta">~3 min</span>
+    </h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag volt">FINISHER</div>
+        <h3>Wall-Supported Calf March</h3>
+        <p>Both hands on wall. Slow left/right alternation with intentional foot pressure. Re-grooves a symmetric pattern before walking into the gym floor.</p>
+        <div class="prescription">60 SEC</div>
+      </div>
+      <div class="card">
+        <div class="card-tag volt">FINISHER</div>
+        <h3>Cat-Cow Flow</h3>
+        <p>10 slow reps. Decouples the thoracic spine from the lumbar — your lateral lean lives at the thoracolumbar junction. Breathe in extension, out in flexion.</p>
+        <div class="prescription">10 SLOW REPS</div>
+      </div>
+    </div>
+  </section>
 
-    <!-- NAVIGATION SCRIPT -->
-    <script>
-        function switchPage(pageId) {
-            // Remove active class from all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Remove active class from all nav items
-            document.querySelectorAll('.nav-item').forEach(nav => {
-                nav.classList.remove('active');
-            });
-            
-            // Add active class to clicked nav and corresponding page
-            document.getElementById(pageId).classList.add('active');
-            event.target.classList.add('active');
-        }
-    </script>
+  <!-- ===== PAGE: TRAINING ===== -->
+  <section class="page" id="page-training">
+    <div class="subhead">module 04 // weekly split</div>
+    <h1 class="display">5-Day <span class="accent">Routine</span></h1>
+    <p class="body" style="margin-top:24px;">Designed for fat loss + lean mass retention while protecting the left ankle and right hip. <strong>Zero barbell squats.</strong> Zero floor deadlifts. Heavy emphasis on pulling, posterior chain, and anti-rotation core. Tick exercises as you finish — progress saves locally.</p>
+
+    <div class="day-tabs" id="day-tabs">
+      <button class="day-tab active" data-day="0"><span class="day-num">DAY 01 // MON</span>Upper Pull</button>
+      <button class="day-tab" data-day="1"><span class="day-num">DAY 02 // TUE</span>Lower Body</button>
+      <button class="day-tab" data-day="2"><span class="day-num">DAY 03 // WED</span>Active Recovery</button>
+      <button class="day-tab" data-day="3"><span class="day-num">DAY 04 // THU</span>Upper Push</button>
+      <button class="day-tab" data-day="4"><span class="day-num">DAY 05 // FRI</span>Posterior + Core</button>
+    </div>
+
+    <div class="day-progress"><div class="day-progress-fill" id="day-progress-fill"></div></div>
+
+    <div class="day-panel active" data-day="0">
+      <div class="day-header">
+        <div>
+          <h2 class="section" style="margin:0;border:0;padding:0;">
+            <span><div class="num">// DAY 01</div><span class="title-text">Upper Body Pull</span></span>
+          </h2>
+        </div>
+        <div class="day-meta-grid">
+          <div class="day-meta"><b>~55</b><span>Minutes</span></div>
+          <div class="day-meta"><b>7</b><span>Exercises</span></div>
+          <div class="day-meta"><b>HIGH</b><span>Intensity</span></div>
+        </div>
+      </div>
+      <div id="exercises-0"></div>
+    </div>
+
+    <div class="day-panel" data-day="1">
+      <div class="day-header">
+        <div>
+          <h2 class="section" style="margin:0;border:0;padding:0;">
+            <span><div class="num">// DAY 02</div><span class="title-text">Lower Body Base</span></span>
+          </h2>
+        </div>
+        <div class="day-meta-grid">
+          <div class="day-meta"><b>~50</b><span>Minutes</span></div>
+          <div class="day-meta"><b>6</b><span>Exercises</span></div>
+          <div class="day-meta"><b>HIGH</b><span>Intensity</span></div>
+        </div>
+      </div>
+      <div id="exercises-1"></div>
+    </div>
+
+    <div class="day-panel" data-day="2">
+      <div class="day-header">
+        <div>
+          <h2 class="section" style="margin:0;border:0;padding:0;">
+            <span><div class="num">// DAY 03</div><span class="title-text">Active Recovery</span></span>
+          </h2>
+        </div>
+        <div class="day-meta-grid">
+          <div class="day-meta"><b>~60</b><span>Minutes</span></div>
+          <div class="day-meta"><b>Z2</b><span>Heart Rate</span></div>
+          <div class="day-meta"><b>LOW</b><span>Intensity</span></div>
+        </div>
+      </div>
+      <div id="exercises-2"></div>
+    </div>
+
+    <div class="day-panel" data-day="3">
+      <div class="day-header">
+        <div>
+          <h2 class="section" style="margin:0;border:0;padding:0;">
+            <span><div class="num">// DAY 04</div><span class="title-text">Upper Body Push</span></span>
+          </h2>
+        </div>
+        <div class="day-meta-grid">
+          <div class="day-meta"><b>~55</b><span>Minutes</span></div>
+          <div class="day-meta"><b>7</b><span>Exercises</span></div>
+          <div class="day-meta"><b>MOD</b><span>Intensity</span></div>
+        </div>
+      </div>
+      <div id="exercises-3"></div>
+    </div>
+
+    <div class="day-panel" data-day="4">
+      <div class="day-header">
+        <div>
+          <h2 class="section" style="margin:0;border:0;padding:0;">
+            <span><div class="num">// DAY 05</div><span class="title-text">Posterior Chain + Core</span></span>
+          </h2>
+        </div>
+        <div class="day-meta-grid">
+          <div class="day-meta"><b>~50</b><span>Minutes</span></div>
+          <div class="day-meta"><b>7</b><span>Exercises</span></div>
+          <div class="day-meta"><b>HIGH</b><span>Intensity</span></div>
+        </div>
+      </div>
+      <div id="exercises-4"></div>
+    </div>
+
+    <div class="rest-quick">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-dim);letter-spacing:1.5px;align-self:center;margin-right:8px;">QUICK REST →</div>
+      <button onclick="startTimer(60)">60s</button>
+      <button onclick="startTimer(90)">90s</button>
+      <button onclick="startTimer(120)">2 min</button>
+      <button onclick="startTimer(180)">3 min</button>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: RULES ===== -->
+  <section class="page" id="page-rules">
+    <div class="subhead">module 05 // doctrine</div>
+    <h1 class="display">The <span class="stencil">Iron</span> Rules</h1>
+    <p class="body" style="margin-top:24px;">Violate these and the compensations come back. The whole protocol is built around them.</p>
+
+    <ul class="rules-list" style="margin-top:30px;">
+      <li class="rule">
+        <div class="rule-num">01</div>
+        <div class="rule-body">
+          <strong>Chest-Supported Only</strong>
+          <p>Because your lower-body foundation is asymmetrical, any standing overhead press or bent-over row forces the lower back to twist around the imbalance. Always use a bench, machine, or chest pad for upper-body work. The spine doesn't get to stabilize what the legs can't.</p>
+        </div>
+      </li>
+      <li class="rule">
+        <div class="rule-num">02</div>
+        <div class="rule-body">
+          <strong>The 2:1 Pull Ratio</strong>
+          <p>For every pushing set (chest, front delts), you do two pulling sets (back, rear delts, rhomboids). Non-negotiable. This drags your shoulders back into position and fights the forward slump that prosthetic gait quietly drills into you.</p>
+        </div>
+      </li>
+      <li class="rule">
+        <div class="rule-num">03</div>
+        <div class="rule-body">
+          <strong>Trap Stop Protocol</strong>
+          <p>If you're doing lateral raises or rows and your upper traps fire before the target muscle does — stop. Drop the weight by 30%. Reset. Your left trap is already overworked from carrying the counterbalance during walking; we are NOT training it harder.</p>
+        </div>
+      </li>
+      <li class="rule">
+        <div class="rule-num">04</div>
+        <div class="rule-body">
+          <strong>Diet Dictates Gravity</strong>
+          <p>At 93kg every step sends force through the left foot and right socket equal to roughly 1.5× bodyweight. Dropping to 82kg drops that force by ~16kg per step, every step, all day. The caloric deficit is a biomechanical intervention. You cannot out-train a bad diet — and even if you could, your joints can't.</p>
+        </div>
+      </li>
+      <li class="rule">
+        <div class="rule-num">05</div>
+        <div class="rule-body">
+          <strong>Sleep is Sets &amp; Reps</strong>
+          <p>Less than 7 hours and the next session is a write-off — cortisol up, recovery down, hunger up. The residual limb interface heals during deep sleep. Treat 7.5h non-negotiable like you treat the workout itself.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== PAGE: TRACKER ===== -->
+  <section class="page" id="page-tracker">
+    <div class="subhead">module 06 // longitudinal data</div>
+    <h1 class="display">Progress <span class="accent">Log</span></h1>
+    <p class="body" style="margin-top:24px;">All data saved in your browser. Nothing is uploaded anywhere — reload the page, switch days, your numbers stay.</p>
+
+    <h2 class="section">
+      <span><div class="num">// 06.A</div><span class="title-text">Weekly Completion</span></span>
+      <span class="meta">Resets each Monday</span>
+    </h2>
+    <div class="tracker-card" style="margin-bottom:24px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+        <h3 style="margin:0;">This Week</h3>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text-dim);"><span id="week-pct" style="color:var(--volt);font-weight:700;">0%</span> complete</div>
+      </div>
+      <div class="week-bars" id="week-bars"></div>
+    </div>
+
+    <div class="tracker-grid">
+      <div class="tracker-card">
+        <h3>Bodyweight Log</h3>
+        <p class="body" style="font-size:.85rem;margin-bottom:14px;">Weigh in same time, same conditions (morning, post-toilet, pre-food).</p>
+        <ul class="weight-list" id="weight-log"></ul>
+        <div class="add-weight">
+          <input type="number" id="weight-input" placeholder="93.0" step="0.1"/>
+          <button onclick="logWeight()">LOG</button>
+        </div>
+      </div>
+
+      <div class="tracker-card">
+        <h3>Hydration Today</h3>
+        <p class="body" style="font-size:.85rem;margin-bottom:14px;">Tap a glass to fill. 8 × 440ml = 3.5L target.</p>
+        <div class="hydration" id="hydration"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-dim);letter-spacing:1.5px;text-align:center;margin-top:14px;">
+          <span id="hydra-count">0</span> / 8 GLASSES
+        </div>
+      </div>
+    </div>
+
+    <button class="reset-btn" onclick="resetAllData()">⚠ RESET ALL TRACKED DATA</button>
+  </section>
+
+</main>
+
+<!-- ══════ REST TIMER BAR ══════ -->
+<div class="timer-bar" id="timer-bar">
+  <div>
+    <div class="timer-label">Rest Timer</div>
+    <div class="timer-display" id="timer-display">0:00</div>
+  </div>
+  <div class="timer-controls">
+    <button class="timer-btn" onclick="addTime(15)">+15</button>
+    <button class="timer-btn" onclick="addTime(30)">+30</button>
+    <button class="timer-btn primary" onclick="closeTimer()">DONE</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// EXERCISE DATABASE
+// ══════════════════════════════════════
+const EXERCISES = [
+  // Day 0: Upper Pull
+  [
+    {n:"Chest-Supported T-Bar Row", sets:"4", reps:"8-10", rest:"90s", cue:"Pull with elbows, not biceps. Pause at peak contraction. Protects lower back via chest support.", target:"Mid-back, lats", swap:"Helms row, seal row"},
+    {n:"Lat Pulldown (Wide Grip)", sets:"4", reps:"10-12", rest:"75s", cue:"Pause 1 sec at bottom. Drive elbows down and slightly back. Do not pull behind neck.", target:"Lats, upper back", swap:"Assisted pull-up"},
+    {n:"Seated Cable Row (Neutral)", sets:"3", reps:"12", rest:"60s", cue:"Neutral grip handle. Squeeze blades at end range. Slight torso twist for engagement.", target:"Mid-back, rhomboids", swap:"Single-arm DB row (chest-supported)"},
+    {n:"Face Pull", sets:"3", reps:"15", rest:"45s", cue:"Pull rope to forehead, externally rotate. Crucial for rear delt and posture. NO trap shrug.", target:"Rear delts, traps", swap:"Reverse pec deck"},
+    {n:"Reverse Pec Deck", sets:"3", reps:"15", rest:"45s", cue:"Lead with pinkies. Squeeze rear delts hard. Pause at peak.", target:"Rear delts", swap:"Bent-over reverse fly (seated)"},
+    {n:"Incline DB Curl", sets:"3", reps:"12", rest:"60s", cue:"Bench at 60°. Let dumbbells hang straight down — puts the bicep in a stretch.", target:"Biceps (long head)", swap:"Cable curl"},
+    {n:"Hammer Curl", sets:"3", reps:"12-15", rest:"45s", cue:"Neutral grip. Keep wrists locked. Targets brachialis for arm thickness.", target:"Brachialis, forearms", swap:"Cable rope hammer"}
+  ],
+  // Day 1: Lower
+  [
+    {n:"Leg Press (High & Wide)", sets:"4", reps:"10-12", rest:"120s", cue:"Feet HIGH and SHOULDER-WIDTH on platform. Drives glutes & hamstrings, spares the knees.", target:"Glutes, quads, hamstrings", swap:"Hack squat (machine)"},
+    {n:"Bulgarian Split Squat", sets:"3", reps:"8/leg", rest:"90s", cue:"Hold a rack with one hand for balance. DB in the other. Front foot 2 feet from bench. Slow down, drive up.", target:"Quads, glutes (unilateral)", swap:"Step-up (low box)"},
+    {n:"Seated Hamstring Curl", sets:"4", reps:"12", rest:"60s", cue:"Squeeze at the contraction. 2-second eccentric. Hamstrings are critical for knee stability.", target:"Hamstrings", swap:"Lying leg curl"},
+    {n:"Leg Extension", sets:"3", reps:"15", rest:"60s", cue:"Slow controlled negatives. Pause at the top. NOT a heavy lift — this is quad isolation.", target:"Quads (VMO)", swap:"Sissy squat (supported)"},
+    {n:"Hip Abduction Machine", sets:"3", reps:"15", rest:"45s", cue:"Lean slightly forward to bias glute medius. This is THE weak link in your kinetic chain.", target:"Glute medius", swap:"Banded side-step"},
+    {n:"Standing Calf Raise (Left)", sets:"4", reps:"15", rest:"60s", cue:"Single-leg or machine. The left calf is overworked but undertrained — give it dedicated load.", target:"Gastrocnemius (left)", swap:"Seated calf raise"}
+  ],
+  // Day 2: Active Recovery
+  [
+    {n:"Zone 2 Cardio", sets:"1", reps:"45 min", rest:"—", cue:"Heart rate 120-130 BPM. Assault bike, rower, or brisk walk. You should be able to hold a conversation.", target:"Aerobic base, fat oxidation", swap:"Stationary bike"},
+    {n:"Full Mobility Flow", sets:"1", reps:"10 min", rest:"—", cue:"Cat-cow, world's greatest stretch, 90/90 hip rotations, thoracic openers. Move through ranges.", target:"Joint mobility, recovery", swap:"Yoga flow"},
+    {n:"Diaphragmatic Breathing", sets:"1", reps:"5 min", rest:"—", cue:"Lie on back. Hand on belly. Inhale 4s, hold 2s, exhale 6s. Activates parasympathetic recovery.", target:"Nervous system reset", swap:"Box breathing"}
+  ],
+  // Day 3: Upper Push
+  [
+    {n:"Incline DB Press", sets:"4", reps:"8-10", rest:"90s", cue:"Bench at 30°. Elbows at 45° (tucked, not flared). Protects the shoulder, hits upper chest.", target:"Upper chest, front delts", swap:"Machine chest press"},
+    {n:"Seated DB Shoulder Press", sets:"4", reps:"10", rest:"90s", cue:"Bench upright, full back support. Do NOT do this standing. Press in a slight arc.", target:"Front + lateral delts", swap:"Machine shoulder press"},
+    {n:"DB Lateral Raise", sets:"4", reps:"15", rest:"45s", cue:"Slight forward lean. Lead with elbows. STRICT — if traps fire, drop weight 30%.", target:"Lateral delts", swap:"Cable lateral raise"},
+    {n:"Cable Chest Fly (Mid)", sets:"3", reps:"12", rest:"60s", cue:"Stand staggered (not flat-footed). Pulleys at chest height. Squeeze hands together in front.", target:"Inner chest", swap:"Pec deck machine"},
+    {n:"Cable Tricep Pushdown (Rope)", sets:"3", reps:"12-15", rest:"45s", cue:"Rope attachment. Split hands at the bottom. Keep elbows pinned to your sides.", target:"Triceps (lateral)", swap:"V-bar pushdown"},
+    {n:"Overhead Cable Tricep Extension", sets:"3", reps:"12", rest:"60s", cue:"Rope, low pulley behind you. Hits the long head of the tricep in a stretched position.", target:"Triceps (long head)", swap:"Skull crushers (machine)"},
+    {n:"Rear Delt Cable Fly", sets:"3", reps:"15", rest:"45s", cue:"Cross cables. Lead with elbows. The 2:1 pull rule — this is your rear delt insurance.", target:"Rear delts", swap:"Reverse pec deck"}
+  ],
+  // Day 4: Posterior + Core
+  [
+    {n:"45° Hyperextension", sets:"4", reps:"12", rest:"75s", cue:"GLUTE focus — round upper back slightly, drive UP with glutes, not lower back. Hold DB at chest.", target:"Glutes, hamstrings", swap:"Reverse hyper"},
+    {n:"Cable Pull-Through", sets:"3", reps:"12", rest:"75s", cue:"Rope between legs, face away from stack. Pure hip hinge. Squeeze glutes hard at lockout.", target:"Glutes, hamstrings (hinge)", swap:"DB Romanian deadlift (light)"},
+    {n:"Single-Leg RDL (Assisted)", sets:"3", reps:"10/leg", rest:"60s", cue:"Stand on left leg, right leg back. Hold rack with one hand for balance. DB in other hand.", target:"Posterior chain (unilateral)", swap:"Cable single-leg RDL"},
+    {n:"Pallof Press", sets:"3", reps:"10/side", rest:"45s", cue:"Cable at chest height, sideways stance. Press straight out, resist rotation. Anti-rotation core = your lateral lean fix.", target:"Core (anti-rotation)", swap:"Banded Pallof press"},
+    {n:"Cable Woodchopper", sets:"3", reps:"12/side", rest:"45s", cue:"High-to-low diagonal. Rotate from the trunk, not arms. Controlled return.", target:"Obliques", swap:"Med ball rotational throw"},
+    {n:"Hanging Knee Raise", sets:"3", reps:"12", rest:"45s", cue:"Or captain's chair. Slow up, slower down. No swinging. Crunch pelvis up, not just knees.", target:"Lower abs, hip flexors", swap:"Lying leg raise"},
+    {n:"Assault Bike Intervals", sets:"6", reps:"20s on / 40s off", rest:"—", cue:"Maximum effort during the 20. Total tank-emptier. Finisher only.", target:"Conditioning, fat burn", swap:"Rower intervals"}
+  ]
+];
+
+const DAY_NAMES = ["Upper Pull","Lower Body","Active Recovery","Upper Push","Posterior + Core"];
+const DAY_OF_WEEK_MAP = [2,0,1,2,3,4,2]; // Sun-Sat → exercise day index (Sun & Wed → recovery)
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+const state = {
+  page: 'overview',
+  day: 0,
+  completed: JSON.parse(localStorage.getItem('kp.completed') || '{}'),
+  weights: JSON.parse(localStorage.getItem('kp.weights') || '[]'),
+  hydration: JSON.parse(localStorage.getItem('kp.hydration') || '{}'),
+  calc: {
+    weight: 93, height: 173, age: 30,
+    activity: 1.375, goal: -500, bka: 0.941
+  }
+};
+
+function persist(){
+  localStorage.setItem('kp.completed', JSON.stringify(state.completed));
+  localStorage.setItem('kp.weights', JSON.stringify(state.weights));
+  localStorage.setItem('kp.hydration', JSON.stringify(state.hydration));
+}
+
+// ══════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════
+document.querySelectorAll('.nav-item').forEach(el=>{
+  el.addEventListener('click',()=>switchPage(el.dataset.page));
+});
+
+function switchPage(page){
+  state.page = page;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===page));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===`page-${page}`));
+  document.getElementById('bread-section').textContent = `// ${page.toUpperCase()}`;
+  const detailMap = {overview:'athlete base',nutrition:'energy + macros',rehab:'pre-training prep',training:'weekly split',rules:'doctrine',tracker:'longitudinal data'};
+  document.getElementById('bread-detail').textContent = detailMap[page] || '';
+}
+
+// ══════════════════════════════════════
+// CLOCK + TODAY
+// ══════════════════════════════════════
+function tickClock(){
+  const d = new Date();
+  const hh = String(d.getHours()).padStart(2,'0');
+  const mm = String(d.getMinutes()).padStart(2,'0');
+  const ss = String(d.getSeconds()).padStart(2,'0');
+  document.getElementById('clock').textContent = `${hh}:${mm}:${ss}`;
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  document.getElementById('today-name').textContent = days[d.getDay()];
+}
+setInterval(tickClock,1000); tickClock();
+
+function todayDayIdx(){
+  return DAY_OF_WEEK_MAP[new Date().getDay()];
+}
+function updateTodayPanel(){
+  const idx = todayDayIdx();
+  const isRecovery = idx === 2;
+  document.getElementById('today-headline').textContent = `DAY ${String(idx+1).padStart(2,'0')} // ${DAY_NAMES[idx].toUpperCase()}`;
+  document.getElementById('today-summary').textContent = isRecovery
+    ? "Recovery day — Zone 2 cardio, mobility flow, breath work. Let the nervous system reset."
+    : `${EXERCISES[idx].length} exercises • Expect ~${idx===1?50:55} minutes • Don't skip rehab prep`;
+}
+
+function goToToday(){
+  switchPage('training');
+  setTimeout(()=>switchDay(todayDayIdx()),50);
+}
+
+// ══════════════════════════════════════
+// EXERCISES: RENDER + INTERACT
+// ══════════════════════════════════════
+function renderDay(dayIdx){
+  const root = document.getElementById(`exercises-${dayIdx}`);
+  if(!root) return;
+  root.innerHTML = '';
+  EXERCISES[dayIdx].forEach((ex,i)=>{
+    const key = `${dayIdx}-${i}`;
+    const isDone = !!state.completed[key];
+    const div = document.createElement('div');
+    div.className = 'exercise' + (isDone?' done':'');
+    div.innerHTML = `
+      <div class="ex-row">
+        <div class="ex-check" data-key="${key}"></div>
+        <div class="ex-name">${ex.n}<small>${ex.target}</small></div>
+        <div class="ex-data"><b>${ex.sets}</b><span>SETS</span></div>
+        <div class="ex-data"><b>${ex.reps}</b><span>REPS</span></div>
+        <div class="ex-data"><b>${ex.rest}</b><span>REST</span></div>
+        <button class="ex-expand-btn" data-toggle>+</button>
+      </div>
+      <div class="ex-detail">
+        <div class="ex-detail-grid">
+          <div><b>Form Cue</b>${ex.cue}</div>
+          <div><b>Target</b>${ex.target}</div>
+          <div><b>Swap For</b>${ex.swap}</div>
+        </div>
+      </div>`;
+    root.appendChild(div);
+
+    div.querySelector('.ex-check').addEventListener('click',e=>{
+      e.stopPropagation();
+      state.completed[key] = !state.completed[key];
+      div.classList.toggle('done');
+      persist(); updateProgress(); updateWeekBars();
+    });
+
+    div.querySelector('[data-toggle]').addEventListener('click',e=>{
+      e.stopPropagation();
+      div.classList.toggle('expanded');
+      e.target.textContent = div.classList.contains('expanded') ? '−' : '+';
+    });
+
+    div.querySelector('.ex-row').addEventListener('click',e=>{
+      if(e.target.closest('.ex-check')||e.target.closest('[data-toggle]')) return;
+      const exp = e.currentTarget.parentElement;
+      exp.classList.toggle('expanded');
+      const btn = exp.querySelector('[data-toggle]');
+      btn.textContent = exp.classList.contains('expanded') ? '−' : '+';
+    });
+  });
+}
+
+function switchDay(idx){
+  state.day = idx;
+  document.querySelectorAll('.day-tab').forEach(t=>t.classList.toggle('active',+t.dataset.day===idx));
+  document.querySelectorAll('.day-panel').forEach(p=>p.classList.toggle('active',+p.dataset.day===idx));
+  updateProgress();
+}
+
+document.querySelectorAll('.day-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>switchDay(+tab.dataset.day));
+});
+
+function updateProgress(){
+  const total = EXERCISES[state.day].length;
+  let done = 0;
+  for(let i=0;i<total;i++) if(state.completed[`${state.day}-${i}`]) done++;
+  const pct = total ? (done/total)*100 : 0;
+  document.getElementById('day-progress-fill').style.width = pct + '%';
+
+  // mark done tabs
+  document.querySelectorAll('.day-tab').forEach(t=>{
+    const d = +t.dataset.day;
+    const tot = EXERCISES[d].length;
+    let dn = 0;
+    for(let i=0;i<tot;i++) if(state.completed[`${d}-${i}`]) dn++;
+    t.classList.toggle('done', dn===tot && tot>0);
+  });
+}
+
+// ══════════════════════════════════════
+// CALORIE CALCULATOR
+// ══════════════════════════════════════
+function setupToggles(id, key){
+  document.querySelectorAll(`#${id} .toggle`).forEach(t=>{
+    t.addEventListener('click',()=>{
+      document.querySelectorAll(`#${id} .toggle`).forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      state.calc[key] = parseFloat(t.dataset.val);
+      runCalc();
+    });
+  });
+}
+setupToggles('activity-toggles','activity');
+setupToggles('goal-toggles','goal');
+setupToggles('bka-toggles','bka');
+
+['in-weight','in-height','in-age'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',e=>{
+    const k = id.replace('in-','');
+    state.calc[k] = parseFloat(e.target.value)||0;
+    runCalc();
+    if(k==='weight') updateOverview();
+  });
+});
+
+function runCalc(){
+  const {weight, height, age, activity, goal, bka} = state.calc;
+  if(!weight||!height||!age) return;
+  const adjWeight = weight * bka;
+  // Mifflin-St Jeor (male)
+  const bmr = (10*adjWeight) + (6.25*height) - (5*age) + 5;
+  const tdee = bmr * activity;
+  const target = tdee + goal;
+
+  document.getElementById('out-bmr').innerHTML = `${Math.round(bmr)}<small>kcal</small>`;
+  document.getElementById('out-tdee').innerHTML = `${Math.round(tdee)}<small>kcal</small>`;
+  document.getElementById('out-target').innerHTML = `${Math.round(target)}<small>kcal</small>`;
+
+  // Macros
+  const protein_g = Math.round(adjWeight * 2.2);
+  const fat_g = Math.round(adjWeight * 0.9);
+  const protein_kcal = protein_g * 4;
+  const fat_kcal = fat_g * 9;
+  const carb_kcal = Math.max(0, target - protein_kcal - fat_kcal);
+  const carb_g = Math.round(carb_kcal / 4);
+
+  const total = protein_kcal + fat_kcal + Math.max(carb_kcal,0);
+  const p_pct = (protein_kcal/total)*100;
+  const c_pct = (Math.max(carb_kcal,0)/total)*100;
+  const f_pct = (fat_kcal/total)*100;
+
+  document.getElementById('bar-p').style.width = p_pct + '%';
+  document.getElementById('bar-c').style.width = c_pct + '%';
+  document.getElementById('bar-f').style.width = f_pct + '%';
+
+  document.getElementById('leg-p').textContent = `${protein_g}g P`;
+  document.getElementById('leg-c').textContent = `${carb_g}g C`;
+  document.getElementById('leg-f').textContent = `${fat_g}g F`;
+}
+runCalc();
+
+// ══════════════════════════════════════
+// OVERVIEW DYNAMIC
+// ══════════════════════════════════════
+function updateOverview(){
+  const w = state.calc.weight;
+  const h = state.calc.height/100;
+  const bmi = w / (h*h);
+  document.getElementById('overview-weight').innerHTML = `${w}<small>kg</small>`;
+  document.getElementById('overview-bmi').textContent = bmi.toFixed(1);
+  let cat = 'Underweight';
+  if(bmi>=18.5) cat='Normal';
+  if(bmi>=25) cat='Overweight';
+  if(bmi>=30) cat='Obese Class I';
+  if(bmi>=35) cat='Obese Class II';
+  document.getElementById('overview-bmi-cat').textContent = cat;
+
+  // Weight trend
+  if(state.weights.length>=2){
+    const latest = state.weights[state.weights.length-1].kg;
+    const prev = state.weights[0].kg;
+    const diff = (latest-prev).toFixed(1);
+    document.getElementById('overview-weight-trend').textContent =
+      diff>0 ? `▲ +${diff}kg from start` : diff<0 ? `▼ ${diff}kg from start` : `Held steady`;
+  }
+}
+
+// ══════════════════════════════════════
+// TRACKER: WEIGHT LOG
+// ══════════════════════════════════════
+function renderWeights(){
+  const list = document.getElementById('weight-log');
+  if(!list) return;
+  if(state.weights.length===0){
+    list.innerHTML = '<li><span>No entries yet</span><span>—</span></li>';
+    return;
+  }
+  list.innerHTML = '';
+  [...state.weights].reverse().slice(0,12).forEach(w=>{
+    const li = document.createElement('li');
+    li.innerHTML = `<span>${w.date}</span><span>${w.kg.toFixed(1)} kg</span>`;
+    list.appendChild(li);
+  });
+}
+function logWeight(){
+  const input = document.getElementById('weight-input');
+  const kg = parseFloat(input.value);
+  if(!kg||kg<30||kg>300) return;
+  const date = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+  state.weights.push({date, kg});
+  if(state.weights.length>50) state.weights.shift();
+  state.calc.weight = kg;
+  document.getElementById('in-weight').value = kg;
+  input.value = '';
+  persist(); renderWeights(); runCalc(); updateOverview();
+}
+
+// ══════════════════════════════════════
+// TRACKER: HYDRATION
+// ══════════════════════════════════════
+function todayKey(){
+  return new Date().toISOString().slice(0,10);
+}
+function renderHydration(){
+  const root = document.getElementById('hydration');
+  if(!root) return;
+  root.innerHTML = '';
+  const key = todayKey();
+  const count = state.hydration[key] || 0;
+  for(let i=0;i<8;i++){
+    const g = document.createElement('div');
+    g.className = 'hydra-glass' + (i<count?' full':'');
+    g.addEventListener('click',()=>{
+      state.hydration[key] = i<count ? i : i+1;
+      persist(); renderHydration();
+    });
+    root.appendChild(g);
+  }
+  document.getElementById('hydra-count').textContent = count;
+}
+
+// ══════════════════════════════════════
+// TRACKER: WEEK BARS
+// ══════════════════════════════════════
+function updateWeekBars(){
+  const root = document.getElementById('week-bars');
+  if(!root) return;
+  root.innerHTML = '';
+  const labels = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  const dayMap = [0,1,2,3,4,2,2]; // MON-SUN → exercise day; weekend = recovery
+  let totalDone = 0, totalEx = 0;
+  for(let i=0;i<7;i++){
+    const d = dayMap[i];
+    const tot = EXERCISES[d].length;
+    let done = 0;
+    for(let j=0;j<tot;j++) if(state.completed[`${d}-${j}`]) done++;
+    totalDone += done; totalEx += tot;
+    const pct = tot ? (done/tot)*100 : 0;
+    const bar = document.createElement('div');
+    bar.className = 'day-bar';
+    bar.innerHTML = `<div class="day-bar-fill" style="height:${pct}%">${pct>15?done+'/'+tot:''}</div><div class="day-bar-label">${labels[i]}</div>`;
+    root.appendChild(bar);
+  }
+  const weekPct = totalEx ? Math.round((totalDone/totalEx)*100) : 0;
+  document.getElementById('week-pct').textContent = weekPct + '%';
+}
+
+// ══════════════════════════════════════
+// REST TIMER
+// ══════════════════════════════════════
+let timerSec = 0, timerHandle = null;
+function startTimer(sec){
+  timerSec = sec;
+  document.getElementById('timer-bar').classList.add('active');
+  updateTimerDisplay();
+  if(timerHandle) clearInterval(timerHandle);
+  timerHandle = setInterval(()=>{
+    timerSec--;
+    updateTimerDisplay();
+    if(timerSec<=0){
+      clearInterval(timerHandle);
+      // beep
+      try{
+        const ctx = new (window.AudioContext||window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.connect(g); g.connect(ctx.destination);
+        osc.frequency.value = 880; g.gain.value = 0.2;
+        osc.start(); osc.stop(ctx.currentTime+0.25);
+      }catch(e){}
+      document.getElementById('timer-display').textContent = 'GO';
+    }
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(Math.max(timerSec,0)/60);
+  const s = Math.max(timerSec,0)%60;
+  document.getElementById('timer-display').textContent = `${m}:${String(s).padStart(2,'0')}`;
+}
+function addTime(s){ timerSec += s; updateTimerDisplay(); }
+function closeTimer(){
+  if(timerHandle) clearInterval(timerHandle);
+  document.getElementById('timer-bar').classList.remove('active');
+}
+
+// ══════════════════════════════════════
+// RESET
+// ══════════════════════════════════════
+function resetAllData(){
+  if(!confirm('Wipe all tracked data? This cannot be undone.')) return;
+  state.completed = {}; state.weights = []; state.hydration = {};
+  persist();
+  EXERCISES.forEach((_,i)=>renderDay(i));
+  renderWeights(); renderHydration(); updateProgress(); updateWeekBars(); updateOverview();
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+EXERCISES.forEach((_,i)=>renderDay(i));
+renderWeights();
+renderHydration();
+updateProgress();
+updateWeekBars();
+updateOverview();
+updateTodayPanel();
+</script>
 </body>
 </html>
