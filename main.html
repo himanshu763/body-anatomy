@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biomechanical Assessment & Corrective Protocol</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --accent-soft: #ebf5fb;
+            --text: #333;
+            --text-light: #5d6d7e;
+            --border: #d5d8dc;
+            --bg-body: #f4f7f6;
+            --bg-card: #ffffff;
+            --success: #27ae60;
+            --warning: #e67e22;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg-body);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            background: var(--bg-card);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+
+        header {
+            border-bottom: 3px solid var(--accent);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            font-size: 1.6rem;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #f8f9f9, transparent);
+        }
+
+        h3 {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-top: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+        }
+
+        .executive-summary {
+            background-color: var(--accent-soft);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            font-style: italic;
+        }
+
+        .protocol-box {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            transition: transform 0.2s;
+        }
+
+        .protocol-box:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .protocol-title {
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .badge-phase1 { background: #fadbd8; color: #c0392b; }
+        .badge-phase2 { background: #d4efdf; color: #1e8449; }
+        .badge-phase3 { background: #d6eaf8; color: #2e86c1; }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .rule-card {
+            background: #fff;
+            border-top: 4px solid var(--warning);
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid var(--border);
+        }
+
+        .timeline-item {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid #fff;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        strong { color: #000; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 10px; }
+            h1 { font-size: 1.8rem; }
+        }
+        
+        /* Utility Classes */
+        .highlight { color: var(--accent); font-weight: bold; }
+        .prescription { background: #fdf2e9; padding: 10px; border-radius: 4px; margin-top: 10px; border-left: 3px solid var(--warning); font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Biomechanical Assessment & Corrective Protocol</h1>
+        <div class="subtitle">Custom Rehabilitation Strategy for Right BKA Compensations</div>
+    </header>
+
+    <section>
+        <h2>1. Executive Summary</h2>
+        <div class="executive-summary">
+            Your body is operating in a chronic, highly adapted state to accommodate the right below-knee amputation (BKA). 
+            Through <strong>myofascial slings</strong>, the lack of right ankle plantarflexion has created a lateral trunk lean, 
+            causing your left shoulder to act as a stabilizing counterweight. These are not isolated injuries, but a 
+            logical chain of kinetic compensations developed over 16 years.
+        </div>
+    </section>
+
+    <section>
+        <h2>2. Deep Anatomical Mapping</h2>
+        
+        <h3>The Right Lower Quadrant (Prosthetic Side)</h3>
+        <ul>
+            <li><strong>Muscular Amnesia:</strong> Weakened Gluteus Medius leading to pelvic drop.</li>
+            <li><strong>Hip Flexor Contracture:</strong> Over-reliance on Iliopsoas/Rectus Femoris to "clear" the prosthetic, locking the hip in chronic flexion.</li>
+            <li><strong>Myofascial Strain:</strong> Deconditioned stabilizers unable to handle isolated loads (QL/Glute Med).</li>
+        </ul>
+
+        <h3>The Left Lower Quadrant (Overworked Anchor)</h3>
+        <ul>
+            <li><strong>Arch Collapse:</strong> Posterior Tibialis fatigue causing "flexible flat foot" under load.</li>
+            <li><strong>Sciatic Nerve Entrapment:</strong> Rigid muscle tension compressing the S1 pathway, causing toe lift difficulty and numbness.</li>
+        </ul>
+
+        <h3>The Left Upper Quadrant (The Counterweight)</h3>
+        <ul>
+            <li><strong>Scapular Dyskinesis:</strong> Winging caused by inhibited Serratus Anterior.</li>
+            <li><strong>Trap Dominance:</strong> Upper Trapezius over-activity to stabilize a "floating" shoulder blade.</li>
+            <li><strong>Anterior Impingement:</strong> Pectoralis Minor pulling the joint into internal rotation, causing clicking/blocking.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3. Corrective Exercise Protocol</h2>
+        <p><em>Perform this 15-minute routine 4-5 times per week as a warm-up.</em></p>
+
+        <h3 class="badge-phase1" style="display:inline-block; padding: 5px 15px; border-radius: 20px; border:none; color: #c0392b;">Phase 1: Tissue Release & Nerve Gliding</h3>
+        
+        <div class="protocol-box">
+            <div class="protocol-title">1. Left Pec Minor Doorway Stretch</div>
+            <p>Place left forearm against doorframe (elbow 2-3" above shoulder). Step through and rotate sternum right.</p>
+            <div class="prescription"><strong>Prescription:</strong> 2 sets × 60 seconds.</div>
+        </div>
+
+        <div class="protocol-box">
+            <div class="protocol-title">2. Left Upper Trap Trigger Point Release</div>
+            <p>Use a lacrosse ball against a wall on tender knots. Tilt left ear toward right shoulder while applying pressure.</p>
+            <div class="prescription"><strong>Prescription:</strong> 90 seconds of continuous pressure.</div>
+        </div>
+
+        <div class="protocol-box">
+            <div class="protocol-title">3. Sciatic Nerve Flossing (Left Leg)</div>
+            <p>Slumped sitting position. Straighten leg + point toes away; bend knee + pull toes up. <strong>Never hold a nerve stretch.</strong></p>
+            <div class="prescription"><strong>Prescription:</strong> 15-20 slow, continuous pumps.</div>
+        </div>
+
+        <h3 class="badge-phase2" style="display:inline-block; padding: 5px 15px; border-radius: 20px; border:none; color: #1e8449;">Phase 2: Neurological Activation</h3>
+
+        <div class="protocol-box">
+            <div class="protocol-title">1. Side-Lying Clamshells (Right Hip)</div>
+            <p>Lie on left side. Lift right knee while keeping heels together. Avoid rolling the lower back.</p>
+            <div class="prescription"><strong>Prescription:</strong> 2 sets × 15 slow reps (3s eccentric).</div>
+        </div>
+
+        <div class="protocol-box">
+            <div class="protocol-title">2. Strict Scapular Push-Ups</div>
+            <p>Plank position, elbows locked. Squeeze blades together, then push floor away to spread them wide.</p>
+            <div class="prescription"><strong>Prescription:</strong> 2 sets × 12 reps.</div>
+        </div>
+
+        <div class="protocol-box">
+            <div class="protocol-title">3. Isometric Seated Calf Holds (Left)</div>
+            <p>Sit with weighted thigh. Raise heel and hold the top position perfectly still to build tendon stiffness.</p>
+            <div class="prescription"><strong>Prescription:</strong> 3 sets × 20-second holds.</div>
+        </div>
+
+        <h3 class="badge-phase3" style="display:inline-block; padding: 5px 15px; border-radius: 20px; border:none; color: #2e86c1;">Phase 3: Total Body Integration</h3>
+
+        <div class="protocol-box">
+            <div class="protocol-title">The Bird-Dog</div>
+            <p>Quadruped position. Extend right leg and left arm simultaneously. Focus on glute and shoulder blade stability.</p>
+            <div class="prescription"><strong>Prescription:</strong> 2 sets × 10 reps (3s hold).</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. Gym Rules & Modifications</h2>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <strong>The "Trap Stop"</strong><br>
+                End sets immediately if the upper trap/neck tenses to assist the movement.
+            </div>
+            <div class="rule-card">
+                <strong>Chest-Supported Only</strong><br>
+                Use an incline bench for all shoulder work to block torso swaying.
+            </div>
+            <div class="rule-card" style="border-top-color: var(--accent);">
+                <strong>2:1 Pull-to-Push</strong><br>
+                Perform two sets of back/posterior work for every one set of chest/pressing.
+            </div>
+            <div class="rule-card" style="border-top-color: var(--accent);">
+                <strong>Unilateral Focus</strong><br>
+                Swap Barbell Squats for Bulgarian Split Squats and Single-Leg Presses.
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>5. Daily Habits</h2>
+        <ul>
+            <li><strong>Standing Awareness:</strong> Consciously shift weight back to center; stop leaning 100% on the left leg.</li>
+            <li><strong>Shoulder Reset:</strong> Every 2 hours, roll the left shoulder up, back, and down into the "back pocket."</li>
+            <li><strong>Sleep Hygiene:</strong> Sleep on back or right side. Avoid left-side sleeping to prevent joint crushing.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>6. Healing Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <strong>Weeks 1–3:</strong> Neuromuscular adaptation. Immediate reduction in neck tightness and clicking.
+            </div>
+            <div class="timeline-item">
+                <strong>Weeks 4–8:</strong> Structural endurance. Left scapula sits flatter; right glute improves gait stability.
+            </div>
+            <div class="timeline-item">
+                <strong>Months 3–6+:</strong> Tissue remodeling. Chest/hip resting lengths reset; visual symmetry improves.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Biomechanical Protocol &copy; 2024 | Designed for Long-term Kinetic Balance</p>
+    </footer>
+</div>
+
+</body>
+</html>
