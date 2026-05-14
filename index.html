@@ -4,200 +4,331 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biomechanical Assessment & Corrective Protocol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --accent-soft: #ebf5fb;
-            --text: #333;
-            --text-light: #5d6d7e;
-            --border: #d5d8dc;
-            --bg-body: #f4f7f6;
-            --bg-card: #ffffff;
-            --success: #27ae60;
-            --warning: #e67e22;
+            --bg-body: #0b0c10;
+            --bg-card: #151820;
+            --bg-card-hover: #1e222d;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-primary: #00f2fe;
+            --accent-secondary: #4facfe;
+            --gradient-main: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --border: rgba(255, 255, 255, 0.08);
+            --glow: 0 0 20px rgba(79, 172, 254, 0.15);
         }
 
         * {
             box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background-color: var(--bg-body);
             margin: 0;
             padding: 0;
         }
 
+        body {
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(79, 172, 254, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 242, 254, 0.05), transparent 25%);
+            min-height: 100vh;
+        }
+
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px;
+            max-width: 960px;
+            margin: 60px auto;
+            padding: 50px;
             background: var(--bg-card);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-main);
         }
 
         header {
-            border-bottom: 3px solid var(--accent);
-            margin-bottom: 40px;
-            padding-bottom: 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
         }
 
         h1 {
-            color: var(--primary);
-            margin: 0;
-            font-size: 2.2rem;
-            letter-spacing: -0.5px;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
 
         .subtitle {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            margin-top: 10px;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         section {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         h2 {
-            color: var(--primary);
-            border-left: 5px solid var(--accent);
-            padding-left: 15px;
-            font-size: 1.6rem;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #f8f9f9, transparent);
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 24px;
+            background: var(--gradient-main);
+            border-radius: 4px;
         }
 
         h3 {
-            color: var(--accent);
-            font-size: 1.25rem;
-            margin-top: 25px;
+            color: var(--text-main);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 5px;
         }
 
         .executive-summary {
-            background-color: var(--accent-soft);
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent);
-            font-style: italic;
+            background: rgba(79, 172, 254, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid var(--accent-secondary);
+            font-size: 1.1rem;
+            color: #fff;
+            line-height: 1.8;
+            box-shadow: var(--glow);
+        }
+
+        .executive-summary strong {
+            color: var(--accent-primary);
+        }
+
+        ul {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-secondary);
+            font-weight: bold;
+        }
+
+        ul li strong {
+            color: #fff;
+            font-weight: 600;
+            margin-right: 5px;
         }
 
         .protocol-box {
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 25px;
             margin-bottom: 20px;
-            background-color: #fff;
-            transition: transform 0.2s;
+            background-color: rgba(255,255,255,0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .protocol-box:hover {
-            border-color: var(--accent);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: translateY(-5px);
+            background-color: var(--bg-card-hover);
+            border-color: rgba(79, 172, 254, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
 
         .protocol-title {
-            font-weight: bold;
-            color: var(--primary);
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+        }
+
+        .protocol-box p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
         }
 
         .badge {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
+            font-size: 0.8rem;
+            padding: 6px 16px;
+            border-radius: 30px;
             text-transform: uppercase;
-            font-weight: bold;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .badge-phase1 { background: #fadbd8; color: #c0392b; }
-        .badge-phase2 { background: #d4efdf; color: #1e8449; }
-        .badge-phase3 { background: #d6eaf8; color: #2e86c1; }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
+        .badge-phase1 { background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); color: var(--danger); }
+        .badge-phase2 { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); color: var(--success); }
+        .badge-phase3 { background: rgba(79, 172, 254, 0.1); border: 1px solid var(--accent-secondary); color: var(--accent-primary); }
 
         .rules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
         .rule-card {
-            background: #fff;
-            border-top: 4px solid var(--warning);
-            padding: 15px;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--warning);
+        }
+
+        .rule-card:nth-child(even)::before { background: var(--accent-secondary); }
+        .rule-card:nth-child(3)::before { background: var(--danger); }
+        .rule-card:nth-child(4)::before { background: var(--success); }
+
+        .rule-card:hover {
+            background: var(--bg-card-hover);
+            transform: scale(1.02);
+        }
+
+        .rule-card strong {
+            display: block;
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .rule-card color {
+            color: var(--text-muted);
         }
 
         .timeline {
             position: relative;
-            padding-left: 30px;
-            border-left: 2px solid var(--border);
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-primary), rgba(79, 172, 254, 0.1));
         }
 
         .timeline-item {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             position: relative;
+            color: var(--text-muted);
         }
 
-        .timeline-item::before {
+        .timeline-item::after {
             content: '';
             position: absolute;
             left: -37px;
-            top: 5px;
+            top: 6px;
             width: 12px;
             height: 12px;
-            background: var(--accent);
+            background: var(--bg-card);
             border-radius: 50%;
-            border: 3px solid #fff;
+            border: 3px solid var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        .timeline-item strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .prescription {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-primary);
+            font-size: 0.95rem;
+            color: #fff;
+            display: inline-block;
         }
 
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            color: var(--text-light);
+            margin-top: 60px;
+            padding-top: 30px;
+            color: var(--text-muted);
             font-size: 0.9rem;
             border-top: 1px solid var(--border);
+            letter-spacing: 1px;
         }
 
-        strong { color: #000; }
-
-        @media (max-width: 600px) {
-            .container { padding: 20px; margin: 10px; }
-            h1 { font-size: 1.8rem; }
+        @media (max-width: 768px) {
+            .container { padding: 30px; margin: 20px; border-radius: 16px; }
+            h1 { font-size: 2.2rem; }
+            .rules-grid { grid-template-columns: 1fr; }
         }
-        
-        /* Utility Classes */
-        .highlight { color: var(--accent); font-weight: bold; }
-        .prescription { background: #fdf2e9; padding: 10px; border-radius: 4px; margin-top: 10px; border-left: 3px solid var(--warning); font-size: 0.95rem; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>Biomechanical Assessment & Corrective Protocol</h1>
-        <div class="subtitle">Custom Rehabilitation Strategy for Right BKA Compensations</div>
+        <h1>Biomechanical Assessment</h1>
+        <div class="subtitle">Custom Corrective Protocol & Kinetic Rebalancing</div>
     </header>
 
     <section>
@@ -236,54 +367,54 @@
 
     <section>
         <h2>3. Corrective Exercise Protocol</h2>
-        <p><em>Perform this 15-minute routine 4-5 times per week as a warm-up.</em></p>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">Perform this 15-minute routine 4-5 times per week as a warm-up.</p>
 
-        <h3 class="badge-phase1" style="display:inline-block; padding: 5px 15px; border-radius: 20px; border:none; color: #c0392b;">Phase 1: Tissue Release & Nerve Gliding</h3>
+        <div class="badge badge-phase1">Phase 1: Tissue Release & Nerve Gliding</div>
         
         <div class="protocol-box">
             <div class="protocol-title">1. Left Pec Minor Doorway Stretch</div>
             <p>Place left forearm against doorframe (elbow 2-3" above shoulder). Step through and rotate sternum right.</p>
-            <div class="prescription"><strong>Prescription:</strong> 2 sets × 60 seconds.</div>
+            <div class="prescription"><strong>Prescription:</strong> 2 sets × 60 seconds</div>
         </div>
 
         <div class="protocol-box">
             <div class="protocol-title">2. Left Upper Trap Trigger Point Release</div>
             <p>Use a lacrosse ball against a wall on tender knots. Tilt left ear toward right shoulder while applying pressure.</p>
-            <div class="prescription"><strong>Prescription:</strong> 90 seconds of continuous pressure.</div>
+            <div class="prescription"><strong>Prescription:</strong> 90 seconds of continuous pressure</div>
         </div>
 
         <div class="protocol-box">
             <div class="protocol-title">3. Sciatic Nerve Flossing (Left Leg)</div>
-            <p>Slumped sitting position. Straighten leg + point toes away; bend knee + pull toes up. <strong>Never hold a nerve stretch.</strong></p>
-            <div class="prescription"><strong>Prescription:</strong> 15-20 slow, continuous pumps.</div>
+            <p>Slumped sitting position. Straighten leg + point toes away; bend knee + pull toes up. Never hold a nerve stretch.</p>
+            <div class="prescription"><strong>Prescription:</strong> 15-20 slow, continuous pumps</div>
         </div>
 
-        <h3 class="badge-phase2" style="display:inline-block; padding: 5px 15px; border-radius: 20px; border:none; color: #1e8449;">Phase 2: Neurological Activation</h3>
+        <div class="badge badge-phase2" style="margin-top: 20px;">Phase 2: Neurological Activation</div>
 
         <div class="protocol-box">
             <div class="protocol-title">1. Side-Lying Clamshells (Right Hip)</div>
             <p>Lie on left side. Lift right knee while keeping heels together. Avoid rolling the lower back.</p>
-            <div class="prescription"><strong>Prescription:</strong> 2 sets × 15 slow reps (3s eccentric).</div>
+            <div class="prescription"><strong>Prescription:</strong> 2 sets × 15 slow reps (3s eccentric)</div>
         </div>
 
         <div class="protocol-box">
             <div class="protocol-title">2. Strict Scapular Push-Ups</div>
             <p>Plank position, elbows locked. Squeeze blades together, then push floor away to spread them wide.</p>
-            <div class="prescription"><strong>Prescription:</strong> 2 sets × 12 reps.</div>
+            <div class="prescription"><strong>Prescription:</strong> 2 sets × 12 reps</div>
         </div>
 
         <div class="protocol-box">
             <div class="protocol-title">3. Isometric Seated Calf Holds (Left)</div>
             <p>Sit with weighted thigh. Raise heel and hold the top position perfectly still to build tendon stiffness.</p>
-            <div class="prescription"><strong>Prescription:</strong> 3 sets × 20-second holds.</div>
+            <div class="prescription"><strong>Prescription:</strong> 3 sets × 20-second holds</div>
         </div>
 
-        <h3 class="badge-phase3" style="display:inline-block; padding: 5px 15px; border-radius: 20px; border:none; color: #2e86c1;">Phase 3: Total Body Integration</h3>
+        <div class="badge badge-phase3" style="margin-top: 20px;">Phase 3: Total Body Integration</div>
 
         <div class="protocol-box">
             <div class="protocol-title">The Bird-Dog</div>
             <p>Quadruped position. Extend right leg and left arm simultaneously. Focus on glute and shoulder blade stability.</p>
-            <div class="prescription"><strong>Prescription:</strong> 2 sets × 10 reps (3s hold).</div>
+            <div class="prescription"><strong>Prescription:</strong> 2 sets × 10 reps (3s hold)</div>
         </div>
     </section>
 
@@ -291,20 +422,20 @@
         <h2>4. Gym Rules & Modifications</h2>
         <div class="rules-grid">
             <div class="rule-card">
-                <strong>The "Trap Stop"</strong><br>
-                End sets immediately if the upper trap/neck tenses to assist the movement.
+                <strong>The "Trap Stop"</strong>
+                <color>End sets immediately if the upper trap/neck tenses to assist the movement.</color>
             </div>
             <div class="rule-card">
-                <strong>Chest-Supported Only</strong><br>
-                Use an incline bench for all shoulder work to block torso swaying.
+                <strong>Chest-Supported Only</strong>
+                <color>Use an incline bench for all shoulder work to block torso swaying.</color>
             </div>
-            <div class="rule-card" style="border-top-color: var(--accent);">
-                <strong>2:1 Pull-to-Push</strong><br>
-                Perform two sets of back/posterior work for every one set of chest/pressing.
+            <div class="rule-card">
+                <strong>2:1 Pull-to-Push</strong>
+                <color>Perform two sets of back/posterior work for every one set of chest/pressing.</color>
             </div>
-            <div class="rule-card" style="border-top-color: var(--accent);">
-                <strong>Unilateral Focus</strong><br>
-                Swap Barbell Squats for Bulgarian Split Squats and Single-Leg Presses.
+            <div class="rule-card">
+                <strong>Unilateral Focus</strong>
+                <color>Swap Barbell Squats for Bulgarian Split Squats and Single-Leg Presses.</color>
             </div>
         </div>
     </section>
@@ -322,19 +453,22 @@
         <h2>6. Healing Timeline</h2>
         <div class="timeline">
             <div class="timeline-item">
-                <strong>Weeks 1–3:</strong> Neuromuscular adaptation. Immediate reduction in neck tightness and clicking.
+                <strong>Weeks 1–3: Neuromuscular Adaptation</strong>
+                Immediate reduction in neck tightness and clicking.
             </div>
             <div class="timeline-item">
-                <strong>Weeks 4–8:</strong> Structural endurance. Left scapula sits flatter; right glute improves gait stability.
+                <strong>Weeks 4–8: Structural Endurance</strong>
+                Left scapula sits flatter; right glute improves gait stability.
             </div>
             <div class="timeline-item">
-                <strong>Months 3–6+:</strong> Tissue remodeling. Chest/hip resting lengths reset; visual symmetry improves.
+                <strong>Months 3–6+: Tissue Remodeling</strong>
+                Chest/hip resting lengths reset; visual symmetry improves.
             </div>
         </div>
     </section>
 
     <footer>
-        <p>Biomechanical Protocol &copy; 2024 | Designed for Long-term Kinetic Balance</p>
+        <p>Biomechanical Protocol &copy; 2024 | Designed for Long-Term Kinetic Balance</p>
     </footer>
 </div>
 
