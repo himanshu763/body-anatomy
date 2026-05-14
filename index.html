@@ -3,474 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biomechanical Assessment & Corrective Protocol</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <title>KINETIC PROTOCOL</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600;800&display=swap');
+
         :root {
-            --bg-body: #0b0c10;
-            --bg-card: #151820;
-            --bg-card-hover: #1e222d;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --accent-primary: #00f2fe;
-            --accent-secondary: #4facfe;
-            --gradient-main: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --success: #10b981;
-            --border: rgba(255, 255, 255, 0.08);
-            --glow: 0 0 20px rgba(79, 172, 254, 0.15);
+            --bg-dark: #0a0a0a;
+            --bg-panel: #141414;
+            --bg-hover: #1f1f1f;
+            --volt: #ccff00;
+            --text-main: #f5f5f5;
+            --text-dim: #888888;
+            --border: #222222;
         }
 
         * {
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            line-height: 1.7;
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            background-color: var(--bg-body);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(79, 172, 254, 0.05), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 242, 254, 0.05), transparent 25%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 960px;
-            margin: 60px auto;
-            padding: 50px;
-            background: var(--bg-card);
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            position: relative;
+            display: flex;
+            height: 100vh;
             overflow: hidden;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-main);
+        /* SIDEBAR NAVIGATION */
+        nav {
+            width: 280px;
+            background-color: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 40px 0;
+            flex-shrink: 0;
         }
 
-        header {
-            text-align: center;
+        .brand {
+            font-family: 'Teko', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--volt);
+            padding: 0 30px;
             margin-bottom: 50px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid var(--border);
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-item {
+            padding: 15px 30px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item:hover {
+            color: var(--text-main);
+            background-color: var(--bg-hover);
+        }
+
+        .nav-item.active {
+            color: var(--bg-dark);
+            background-color: var(--volt);
+            border-left: 4px solid #fff;
+        }
+
+        /* MAIN CONTENT AREA */
+        main {
+            flex-grow: 1;
+            padding: 50px 80px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        section {
-            margin-bottom: 50px;
+            font-family: 'Teko', sans-serif;
+            font-size: 5rem;
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 10px;
+            color: var(--text-main);
         }
 
         h2 {
-            color: #fff;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        h2::before {
-            content: '';
-            display: block;
-            width: 8px;
-            height: 24px;
-            background: var(--gradient-main);
-            border-radius: 4px;
-        }
-
-        h3 {
-            color: var(--text-main);
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 30px 0 15px 0;
+            font-size: 1.5rem;
+            color: var(--volt);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 40px 0 20px 0;
+            border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
+        }
+
+        p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+            padding: 20px 0;
             border-bottom: 1px solid var(--border);
         }
 
-        .executive-summary {
-            background: rgba(79, 172, 254, 0.05);
-            padding: 30px;
-            border-radius: 16px;
-            border-left: 4px solid var(--accent-secondary);
-            font-size: 1.1rem;
-            color: #fff;
-            line-height: 1.8;
-            box-shadow: var(--glow);
-        }
-
-        .executive-summary strong {
-            color: var(--accent-primary);
-        }
-
-        ul {
-            padding-left: 0;
-            list-style: none;
-        }
-
-        ul li {
-            margin-bottom: 15px;
-            padding-left: 25px;
-            position: relative;
-            color: var(--text-muted);
-        }
-
-        ul li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--accent-secondary);
-            font-weight: bold;
-        }
-
-        ul li strong {
-            color: #fff;
-            font-weight: 600;
-            margin-right: 5px;
-        }
-
-        .protocol-box {
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-            background-color: rgba(255,255,255,0.02);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .protocol-box:hover {
-            transform: translateY(-5px);
-            background-color: var(--bg-card-hover);
-            border-color: rgba(79, 172, 254, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-        }
-
-        .protocol-title {
-            font-weight: 700;
-            color: #fff;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+        .stat-box {
             display: flex;
-            align-items: center;
+            flex-direction: column;
         }
 
-        .protocol-box p {
-            color: var(--text-muted);
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-family: 'Teko', sans-serif;
+            font-size: 2.5rem;
+            color: var(--volt);
+            line-height: 1;
+        }
+
+        /* CARDS / PROTOCOLS */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 30px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--volt);
+        }
+
+        .card-tag {
+            background: var(--text-main);
+            color: var(--bg-dark);
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: inline-block;
             margin-bottom: 15px;
         }
 
-        .badge {
-            font-size: 0.8rem;
-            padding: 6px 16px;
-            border-radius: 30px;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .badge-phase1 { background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); color: var(--danger); }
-        .badge-phase2 { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); color: var(--success); }
-        .badge-phase3 { background: rgba(79, 172, 254, 0.1); border: 1px solid var(--accent-secondary); color: var(--accent-primary); }
-
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .rule-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border);
-            padding: 25px;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .rule-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--warning);
-        }
-
-        .rule-card:nth-child(even)::before { background: var(--accent-secondary); }
-        .rule-card:nth-child(3)::before { background: var(--danger); }
-        .rule-card:nth-child(4)::before { background: var(--success); }
-
-        .rule-card:hover {
-            background: var(--bg-card-hover);
-            transform: scale(1.02);
-        }
-
-        .rule-card strong {
-            display: block;
-            color: #fff;
-            font-size: 1.2rem;
+        .card h3 {
+            font-size: 1.3rem;
             margin-bottom: 10px;
+            color: var(--text-main);
         }
 
-        .rule-card color {
-            color: var(--text-muted);
-        }
-
-        .timeline {
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 9px;
-            top: 10px;
-            bottom: 10px;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent-primary), rgba(79, 172, 254, 0.1));
-        }
-
-        .timeline-item {
-            margin-bottom: 30px;
-            position: relative;
-            color: var(--text-muted);
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: -37px;
-            top: 6px;
-            width: 12px;
-            height: 12px;
-            background: var(--bg-card);
-            border-radius: 50%;
-            border: 3px solid var(--accent-primary);
-            box-shadow: 0 0 10px var(--accent-primary);
-        }
-
-        .timeline-item strong {
-            color: #fff;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 1.1rem;
+        .card p {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
         }
 
         .prescription {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px 20px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-primary);
-            font-size: 0.95rem;
-            color: #fff;
-            display: inline-block;
+            color: var(--volt);
+            font-family: monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(204, 255, 0, 0.05);
+            padding: 10px;
+            border-left: 2px solid var(--volt);
         }
 
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 30px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border);
+        /* WORKOUT TABLES */
+        .workout-table {
+            width: 100%;
+            max-width: 900px;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        .workout-table th, .workout-table td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .workout-table th {
+            color: var(--volt);
+            text-transform: uppercase;
+            font-size: 0.85rem;
             letter-spacing: 1px;
         }
 
-        @media (max-width: 768px) {
-            .container { padding: 30px; margin: 20px; border-radius: 16px; }
-            h1 { font-size: 2.2rem; }
-            .rules-grid { grid-template-columns: 1fr; }
+        .workout-table tr:hover td {
+            background-color: var(--bg-hover);
+        }
+
+        .workout-table td:first-child {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .rules-list li {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-dim);
+            padding-left: 20px;
+            border-left: 2px solid var(--volt);
+            list-style: none;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Biomechanical Assessment</h1>
-        <div class="subtitle">Custom Corrective Protocol & Kinetic Rebalancing</div>
-    </header>
-
-    <section>
-        <h2>1. Executive Summary</h2>
-        <div class="executive-summary">
-            Your body is operating in a chronic, highly adapted state to accommodate the right below-knee amputation (BKA). 
-            Through <strong>myofascial slings</strong>, the lack of right ankle plantarflexion has created a lateral trunk lean, 
-            causing your left shoulder to act as a stabilizing counterweight. These are not isolated injuries, but a 
-            logical chain of kinetic compensations developed over 16 years.
+    <!-- SIDEBAR NAV -->
+    <nav>
+        <div class="brand">KINETIC<br>PROTOCOL</div>
+        <div class="nav-links">
+            <div class="nav-item active" onclick="switchPage('page-overview')">01. Overview</div>
+            <div class="nav-item" onclick="switchPage('page-rehab')">02. Rehab Protocol</div>
+            <div class="nav-item" onclick="switchPage('page-training')">03. 5-Day Routine</div>
+            <div class="nav-item" onclick="switchPage('page-rules')">04. Iron Rules</div>
         </div>
-    </section>
+    </nav>
 
-    <section>
-        <h2>2. Deep Anatomical Mapping</h2>
-        
-        <h3>The Right Lower Quadrant (Prosthetic Side)</h3>
-        <ul>
-            <li><strong>Muscular Amnesia:</strong> Weakened Gluteus Medius leading to pelvic drop.</li>
-            <li><strong>Hip Flexor Contracture:</strong> Over-reliance on Iliopsoas/Rectus Femoris to "clear" the prosthetic, locking the hip in chronic flexion.</li>
-            <li><strong>Myofascial Strain:</strong> Deconditioned stabilizers unable to handle isolated loads (QL/Glute Med).</li>
-        </ul>
+    <!-- MAIN CONTENT -->
+    <main>
 
-        <h3>The Left Lower Quadrant (Overworked Anchor)</h3>
-        <ul>
-            <li><strong>Arch Collapse:</strong> Posterior Tibialis fatigue causing "flexible flat foot" under load.</li>
-            <li><strong>Sciatic Nerve Entrapment:</strong> Rigid muscle tension compressing the S1 pathway, causing toe lift difficulty and numbness.</li>
-        </ul>
-
-        <h3>The Left Upper Quadrant (The Counterweight)</h3>
-        <ul>
-            <li><strong>Scapular Dyskinesis:</strong> Winging caused by inhibited Serratus Anterior.</li>
-            <li><strong>Trap Dominance:</strong> Upper Trapezius over-activity to stabilize a "floating" shoulder blade.</li>
-            <li><strong>Anterior Impingement:</strong> Pectoralis Minor pulling the joint into internal rotation, causing clicking/blocking.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>3. Corrective Exercise Protocol</h2>
-        <p style="color: var(--text-muted); margin-bottom: 25px;">Perform this 15-minute routine 4-5 times per week as a warm-up.</p>
-
-        <div class="badge badge-phase1">Phase 1: Tissue Release & Nerve Gliding</div>
-        
-        <div class="protocol-box">
-            <div class="protocol-title">1. Left Pec Minor Doorway Stretch</div>
-            <p>Place left forearm against doorframe (elbow 2-3" above shoulder). Step through and rotate sternum right.</p>
-            <div class="prescription"><strong>Prescription:</strong> 2 sets × 60 seconds</div>
-        </div>
-
-        <div class="protocol-box">
-            <div class="protocol-title">2. Left Upper Trap Trigger Point Release</div>
-            <p>Use a lacrosse ball against a wall on tender knots. Tilt left ear toward right shoulder while applying pressure.</p>
-            <div class="prescription"><strong>Prescription:</strong> 90 seconds of continuous pressure</div>
-        </div>
-
-        <div class="protocol-box">
-            <div class="protocol-title">3. Sciatic Nerve Flossing (Left Leg)</div>
-            <p>Slumped sitting position. Straighten leg + point toes away; bend knee + pull toes up. Never hold a nerve stretch.</p>
-            <div class="prescription"><strong>Prescription:</strong> 15-20 slow, continuous pumps</div>
-        </div>
-
-        <div class="badge badge-phase2" style="margin-top: 20px;">Phase 2: Neurological Activation</div>
-
-        <div class="protocol-box">
-            <div class="protocol-title">1. Side-Lying Clamshells (Right Hip)</div>
-            <p>Lie on left side. Lift right knee while keeping heels together. Avoid rolling the lower back.</p>
-            <div class="prescription"><strong>Prescription:</strong> 2 sets × 15 slow reps (3s eccentric)</div>
-        </div>
-
-        <div class="protocol-box">
-            <div class="protocol-title">2. Strict Scapular Push-Ups</div>
-            <p>Plank position, elbows locked. Squeeze blades together, then push floor away to spread them wide.</p>
-            <div class="prescription"><strong>Prescription:</strong> 2 sets × 12 reps</div>
-        </div>
-
-        <div class="protocol-box">
-            <div class="protocol-title">3. Isometric Seated Calf Holds (Left)</div>
-            <p>Sit with weighted thigh. Raise heel and hold the top position perfectly still to build tendon stiffness.</p>
-            <div class="prescription"><strong>Prescription:</strong> 3 sets × 20-second holds</div>
-        </div>
-
-        <div class="badge badge-phase3" style="margin-top: 20px;">Phase 3: Total Body Integration</div>
-
-        <div class="protocol-box">
-            <div class="protocol-title">The Bird-Dog</div>
-            <p>Quadruped position. Extend right leg and left arm simultaneously. Focus on glute and shoulder blade stability.</p>
-            <div class="prescription"><strong>Prescription:</strong> 2 sets × 10 reps (3s hold)</div>
-        </div>
-    </section>
-
-    <section>
-        <h2>4. Gym Rules & Modifications</h2>
-        <div class="rules-grid">
-            <div class="rule-card">
-                <strong>The "Trap Stop"</strong>
-                <color>End sets immediately if the upper trap/neck tenses to assist the movement.</color>
+        <!-- PAGE 1: OVERVIEW -->
+        <section id="page-overview" class="page active">
+            <h1>Athlete Base</h1>
+            
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <div class="stat-label">Height</div>
+                    <div class="stat-value">5'8"</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Weight</div>
+                    <div class="stat-value">93 KG</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Primary Constraint</div>
+                    <div class="stat-value">RT BKA</div>
+                </div>
             </div>
-            <div class="rule-card">
-                <strong>Chest-Supported Only</strong>
-                <color>Use an incline bench for all shoulder work to block torso swaying.</color>
-            </div>
-            <div class="rule-card">
-                <strong>2:1 Pull-to-Push</strong>
-                <color>Perform two sets of back/posterior work for every one set of chest/pressing.</color>
-            </div>
-            <div class="rule-card">
-                <strong>Unilateral Focus</strong>
-                <color>Swap Barbell Squats for Bulgarian Split Squats and Single-Leg Presses.</color>
-            </div>
-        </div>
-    </section>
 
-    <section>
-        <h2>5. Daily Habits</h2>
-        <ul>
-            <li><strong>Standing Awareness:</strong> Consciously shift weight back to center; stop leaning 100% on the left leg.</li>
-            <li><strong>Shoulder Reset:</strong> Every 2 hours, roll the left shoulder up, back, and down into the "back pocket."</li>
-            <li><strong>Sleep Hygiene:</strong> Sleep on back or right side. Avoid left-side sleeping to prevent joint crushing.</li>
-        </ul>
-    </section>
+            <h2>Assessment Reality Check</h2>
+            <p>At 93kg, your joints are under significant mechanical load, exacerbated by the kinetic compensations from your right BKA. Your left leg is taking the brunt of the force, and your left shoulder is acting as a counterweight. </p>
+            <p><strong>The Mission:</strong> Strip body fat to reduce joint load, strengthen the posterior chain to fix the lateral lean, and eliminate exercises that cause unnecessary impact. Nutrition will drive the weight loss; this protocol builds the engine.</p>
+        </section>
 
-    <section>
-        <h2>6. Healing Timeline</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <strong>Weeks 1–3: Neuromuscular Adaptation</strong>
-                Immediate reduction in neck tightness and clicking.
-            </div>
-            <div class="timeline-item">
-                <strong>Weeks 4–8: Structural Endurance</strong>
-                Left scapula sits flatter; right glute improves gait stability.
-            </div>
-            <div class="timeline-item">
-                <strong>Months 3–6+: Tissue Remodeling</strong>
-                Chest/hip resting lengths reset; visual symmetry improves.
-            </div>
-        </div>
-    </section>
+        <!-- PAGE 2: REHAB -->
+        <section id="page-rehab" class="page">
+            <h1>Rehab Prep</h1>
+            <p>Do this 10-minute circuit BEFORE you touch a weight. It primes the nervous system and unlocks the compensations.</p>
 
-    <footer>
-        <p>Biomechanical Protocol &copy; 2024 | Designed for Long-Term Kinetic Balance</p>
-    </footer>
-</div>
+            <h2>Phase 1: Release</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-tag">Upper</div>
+                    <h3>Left Pec Minor Doorway</h3>
+                    <p>Forearm against doorframe. Rotate sternum right. Opens the anterior shoulder.</p>
+                    <div class="prescription">2 SETS × 60 SECONDS</div>
+                </div>
+                <div class="card">
+                    <div class="card-tag">Nerve</div>
+                    <h3>Left Sciatic Flossing</h3>
+                    <p>Slump seated. Straighten leg/point toes down, bend knee/pull toes up. Do not hold.</p>
+                    <div class="prescription">15 CONTINUOUS PUMPS</div>
+                </div>
+            </div>
 
+            <h2>Phase 2: Activation</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-tag">Core/Hip</div>
+                    <h3>Right Side Clamshells</h3>
+                    <p>Lie on left side. Lift right knee. Keep heels together. Wakes up the dead glute medius.</p>
+                    <div class="prescription">2 SETS × 15 REPS (SLOW)</div>
+                </div>
+                <div class="card">
+                    <div class="card-tag">Scapula</div>
+                    <h3>Strict Scapular Push-Ups</h3>
+                    <p>Plank position, elbows locked. Sink blades, then push the floor away aggressively.</p>
+                    <div class="prescription">2 SETS × 12 REPS</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 3: TRAINING -->
+        <section id="page-training" class="page">
+            <h1>5-Day Routine</h1>
+            <p>Designed for fat loss and muscle retention while protecting the left ankle and right hip. Zero barbell squats. Zero heavy deadlifts from the floor. Heavy emphasis on back (pulling) to fix posture.</p>
+
+            <h2>Day 1: Upper Body Pull (Back/Biceps)</h2>
+            <table class="workout-table">
+                <tr><th>Movement</th><th>Sets</th><th>Reps</th><th>Notes</th></tr>
+                <tr><td>Chest-Supported T-Bar Row</td><td>4</td><td>8-10</td><td>Protects lower back. Pull with elbows.</td></tr>
+                <tr><td>Lat Pulldown (Wide Grip)</td><td>3</td><td>10-12</td><td>Pause for 1 sec at the bottom.</td></tr>
+                <tr><td>Single-Arm Cable Row</td><td>3</td><td>12/arm</td><td>Focus on twisting the torso slightly.</td></tr>
+                <tr><td>DB Hammer Curls</td><td>3</td><td>12</td><td>Keeps wrists neutral.</td></tr>
+            </table>
+
+            <h2>Day 2: Lower Body Base</h2>
+            <table class="workout-table">
+                <tr><th>Movement</th><th>Sets</th><th>Reps</th><th>Notes</th></tr>
+                <tr><td>Leg Press</td><td>4</td><td>10-15</td><td>Foot placement: high & wide to target glutes.</td></tr>
+                <tr><td>Bulgarian Split Squats</td><td>3</td><td>8/leg</td><td>Hold onto a rack for balance. Dumbbell in one hand.</td></tr>
+                <tr><td>Seated Leg Extensions</td><td>3</td><td>15</td><td>Slow controlled negatives.</td></tr>
+                <tr><td>Seated Hamstring Curls</td><td>3</td><td>15</td><td>Squeeze at the contraction.</td></tr>
+            </table>
+
+            <h2>Day 3: Active Recovery / Zone 2</h2>
+            <p>45 Minutes: Assault Bike, Rowing Ergometer, or brisk walking. Keep heart rate around 120-130 BPM. No heavy lifting. Let the nervous system recover.</p>
+
+            <h2>Day 4: Upper Body Push (Chest/Shoulders/Triceps)</h2>
+            <table class="workout-table">
+                <tr><th>Movement</th><th>Sets</th><th>Reps</th><th>Notes</th></tr>
+                <tr><td>Incline Dumbbell Press</td><td>4</td><td>8-10</td><td>Tucked elbows (45 degrees). Protects the shoulder.</td></tr>
+                <tr><td>Seated DB Lateral Raises</td><td>4</td><td>15</td><td>Strict form. No trap shrugging.</td></tr>
+                <tr><td>Cable Tricep Pushdowns</td><td>3</td><td>12-15</td><td>Use a rope attachment.</td></tr>
+                <tr><td>Pec Deck / Machine Fly</td><td>3</td><td>15</td><td>Constant tension.</td></tr>
+            </table>
+
+            <h2>Day 5: Posterior Chain & Core</h2>
+            <table class="workout-table">
+                <tr><th>Movement</th><th>Sets</th><th>Reps</th><th>Notes</th></tr>
+                <tr><td>45-Degree Back Extensions</td><td>3</td><td>12-15</td><td>Squeeze glutes to lift, not lower back.</td></tr>
+                <tr><td>Cable Pull-Throughs</td><td>3</td><td>12</td><td>Re-teaches the hip hinge safely.</td></tr>
+                <tr><td>Pallof Press</td><td>3</td><td>10/side</td><td>Anti-rotation core work. Crucial for your lateral lean.</td></tr>
+                <tr><td>Assault Bike Intervals</td><td>6</td><td>20s sprint/40s rest</td><td>Finisher. Empty the tank.</td></tr>
+            </table>
+        </section>
+
+        <!-- PAGE 4: RULES -->
+        <section id="page-rules" class="page">
+            <h1>The Iron Rules</h1>
+            <p>Violate these, and the compensations will return.</p>
+
+            <ul class="rules-list">
+                <li><strong>Chest-Supported Only:</strong> Because your lower body foundation is asymmetrical, standing overhead presses or bent-over rows will force your lower back to twist. Always use a bench or machine to support your chest/back during upper body movements.</li>
+                <li><strong>The 2:1 Pull Ratio:</strong> For every pushing set (chest/front delts), you must do TWO pulling sets (back/rear delts). This pulls your shoulders back and fights the forward slump.</li>
+                <li><strong>Trap Stop Protocol:</strong> If you are doing lateral raises or rows and feel your neck/upper traps doing the work instead of the target muscle, drop the weight immediately. Your left trap is already overworked.</li>
+                <li><strong>Diet Dictates Gravity:</strong> At 93kg, every step sends massive force through your left foot and right socket. You cannot out-train a bad diet. Caloric deficit is a biomechanical requirement, not just a cosmetic one.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- NAVIGATION SCRIPT -->
+    <script>
+        function switchPage(pageId) {
+            // Remove active class from all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            
+            // Add active class to clicked nav and corresponding page
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>
